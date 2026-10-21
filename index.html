@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Floors for Living</title>
+<meta name="description" content="Flooring showroom in Barnard Castle. LVT, carpet, vinyl and bespoke floors, measured and fitted.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: dark brand bands (header, hero, process, footer) alternate with pale stone content bands; one wide container, image-led tiles like a showroom wall. */
+@font-face {
+  font-family: "Auttera";
+  src: url("fonts/auttera.woff2") format("woff2");
+  font-display: swap;
+}
+:root {
+  --ink: #0e0d0b;          /* logo black */
+  --ink-2: #1a1814;
+  --stone: #eceae5;        /* pale band */
+  --paper: #f8f7f4;
+  --text: #1c1a17;
+  --muted: #6e685f;
+  --line: #d6d2ca;
+  --gold: #b8924a;         /* mid gold from the mark */
+  --gold-dark: #8f6a2c;
+  --gold-light: #ecdc94;
+  --on-dark: #f4f1ea;
+  --on-dark-muted: #a9a297;
+  --gold-grad: linear-gradient(90deg, #9a6a2e 0%, #d6bb6e 35%, #f2e396 50%, #d6bb6e 65%, #9a6a2e 100%);
+
+  --f-display: "Auttera", "Segoe Script", "Brush Script MT", cursive;
+  --f-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  --wrap: 1240px;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--ink); }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.band { padding-block: clamp(64px, 9vw, 120px); }
+.band--stone { background: var(--stone); }
+.band--dark { background: var(--ink); color: var(--on-dark); }
+
+.eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold-dark); margin: 0 0 18px;
+}
+.band--dark .eyebrow, .hero .eyebrow { color: var(--gold); }
+.eyebrow--split span { white-space: nowrap; }
+@media (max-width: 560px) { .eyebrow--split .sep { display: none; } .eyebrow--split span:not(.sep) { display: block; } .eyebrow--split span + .sep + span { margin-top: 6px; } }
+.display {
+  font-family: var(--f-display); font-weight: 400;
+  line-height: 1.02; letter-spacing: .005em; margin: 0; text-wrap: balance;
+}
+h2.display { font-size: clamp(40px, 6vw, 72px); }
+.lede { font-size: clamp(18px, 1.6vw, 20px); color: var(--muted); max-width: 58ch; margin: 0; }
+.band--dark .lede { color: var(--on-dark-muted); }
+.tbc { border-bottom: 1px dashed var(--gold); }  /* placeholder content to confirm */
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 600 13px/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase;
+  padding: 18px 26px; text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.btn--gold { background: var(--gold); color: var(--ink); }
+.btn--gold:hover { background: var(--gold-light); }
+.btn--ghost { border-color: rgba(244,241,234,.5); color: var(--on-dark); background: transparent; }
+.btn--ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+.btn--ink { background: var(--ink); color: var(--on-dark); }
+.btn--ink:hover { background: var(--gold-dark); }
+.link-arrow {
+  font: 600 12px/1 var(--f-body); letter-spacing: .18em; text-transform: uppercase; text-decoration: none;
+  display: inline-flex; gap: 10px; align-items: center;
+}
+.link-arrow::after { content: "→"; transition: transform .25s; }
+.link-arrow:hover::after { transform: translateX(4px); }
+
+/* Header */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: rgba(14,13,11,.94); backdrop-filter: blur(8px); color: var(--on-dark);
+  border-bottom: 1px solid rgba(184,146,74,.25);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--on-dark); }
+.brand svg { width: 34px; height: 34px; flex: none; }
+.brand span { font-family: var(--f-display); font-size: 25px; letter-spacing: .02em; white-space: nowrap; }
+.nav { display: flex; align-items: center; gap: 34px; }
+.nav a:not(.btn) { font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--on-dark-muted); transition: color .2s; }
+.nav a:not(.btn):hover { color: var(--gold-light); }
+.nav .btn { padding: 13px 18px; font-size: 12px; }
+@media (max-width: 860px) { .nav a:not(.btn) { display: none; } }
+@media (max-width: 420px) { .brand span { font-size: 20px; } .nav .btn { padding: 11px 12px; letter-spacing: .1em; } }
+
+/* Hero */
+.hero { position: relative; background: var(--ink); color: var(--on-dark); overflow: hidden; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 60%; transform: scale(1.04); animation: settle 2.4s ease-out forwards; }
+@keyframes settle { to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .hero__img { animation: none; transform: none; } }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(14,13,11,.92) 0%, rgba(14,13,11,.7) 45%, rgba(14,13,11,.15) 100%); }
+.hero .wrap { position: relative; z-index: 1; min-height: clamp(520px, 72vh, 740px); display: flex; flex-direction: column; justify-content: flex-end; padding-block: 120px 72px; }
+.hero h1 { font-size: clamp(50px, 8vw, 108px); max-width: 12ch; }
+.hero h1 em { font-style: normal; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p { font-size: clamp(18px, 1.7vw, 21px); color: #d9d3c8; max-width: 46ch; margin: 26px 0 36px; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+.hero__meta { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(244,241,234,.18); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-muted); }
+.hero__meta b { color: var(--gold); font-weight: 600; }
+
+/* Intro */
+.intro { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(28px, 6vw, 96px); align-items: start; }
+.intro__head { min-width: 0; }
+.intro__text { min-width: 0; display: grid; gap: 22px; padding-top: 8px; }
+.intro__text p { margin: 0; max-width: 58ch; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); margin-top: 8px; }
+.facts div { padding: 20px 16px 0 0; }
+.facts div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.facts dt { font-family: var(--f-display); font-size: 30px; line-height: 1; color: var(--gold-dark); }
+.facts dd { margin: 8px 0 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
+@media (max-width: 860px) { .intro { grid-template-columns: 1fr; } }
+
+/* Video band with logo reveal */
+.reel { position: relative; overflow: hidden; background: var(--ink); aspect-ratio: 21 / 9; min-height: 400px; max-height: 660px; width: 100%; display: grid; place-items: center; }
+.reel__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.reel::before { content: ""; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 55% 60% at 50% 50%, rgba(14,13,11,.7) 0%, rgba(14,13,11,.4) 60%, rgba(14,13,11,.25) 100%); }
+.reel__logo { position: relative; z-index: 2; display: grid; justify-items: center; gap: clamp(14px, 2vw, 26px); padding-inline: 16px; text-align: center; }
+.reel__mark { width: clamp(76px, 9vw, 124px); height: auto; overflow: visible; filter: drop-shadow(0 2px 12px rgba(0,0,0,.45)); }
+.reel__mark path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.reel__word { font-family: var(--f-display); font-size: clamp(36px, 5.6vw, 76px); line-height: 1; color: #fff; letter-spacing: .02em; text-shadow: 0 2px 18px rgba(0,0,0,.5); }
+.reel.is-waiting .reel__mark path { stroke-dashoffset: 1; }
+.reel.is-waiting .reel__word { opacity: 0; transform: translateY(14px); }
+.reel.is-playing .reel__mark path { animation: draw .9s cubic-bezier(.6,0,.2,1) var(--d) both; }
+.reel.is-playing .reel__word { animation: rise 1s ease-out 1.5s both; }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); letter-spacing: .12em; } to { opacity: 1; transform: none; letter-spacing: .02em; } }
+@media (max-width: 640px) { .reel { aspect-ratio: auto; height: 440px; } }
+@media (max-width: 520px) { .facts { grid-template-columns: 1fr; } .facts div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); } .facts div { padding-bottom: 18px; } }
+
+/* Floors grid */
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 60px); }
+.section-head > div { min-width: 0; }
+.floors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.floor { position: relative; display: flex; flex-direction: column; text-decoration: none; color: var(--text); min-width: 0; }
+.floor__img { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--ink-2); }
+.floor__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.floor:hover .floor__img img { transform: scale(1.06); }
+.floor__img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,13,11,0) 60%, rgba(14,13,11,.62) 100%); }
+.floor__name { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; color: var(--on-dark); font-family: var(--f-display); font-size: clamp(38px, 3.6vw, 50px); line-height: 1; }
+.floor__body { padding: 20px 2px 0; display: grid; gap: 12px; }
+.floor__body p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); }
+.floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-dark); border-top: 1px solid var(--line); padding-top: 12px; }
+@media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); gap: 36px 18px; } }
+@media (max-width: 520px) { .floors { grid-template-columns: 1fr; } .floor__img { aspect-ratio: 5 / 4; } }
+
+/* Process */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid rgba(184,146,74,.35); }
+.step { padding: 32px 32px 8px 0; min-width: 0; }
+.step + .step { padding-left: 32px; border-left: 1px solid rgba(244,241,234,.12); }
+.step__n { font-family: var(--f-display); font-size: 64px; line-height: .9; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.step h3 { font-size: 15px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; margin: 18px 0 10px; color: var(--on-dark); }
+.step p { margin: 0; color: var(--on-dark-muted); font-size: 16px; max-width: 34ch; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; } .step + .step { padding-left: 0; border-left: 0; border-top: 1px solid rgba(244,241,234,.12); } .step { padding-right: 0; padding-bottom: 28px; } }
+
+/* Visit */
+.visit { display: grid; grid-template-columns: 1fr 1.35fr; gap: clamp(32px, 5vw, 72px); align-items: stretch; }
+.visit__info { display: grid; gap: 28px; align-content: start; min-width: 0; }
+.visit__info dl { margin: 0; display: grid; gap: 22px; }
+.visit__info dt { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; }
+.visit__info dd { margin: 0; font-size: 17px; }
+.hours { width: 100%; max-width: 340px; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
+.hours td { padding: 4px 0; }
+.hours td:last-child { text-align: right; }
+.map { position: relative; display: flex; flex-direction: column; background: var(--ink); min-width: 0; }
+.map__canvas { position: relative; flex: 1; min-height: 440px; overflow: hidden; background: #141210; }
+.map__canvas iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none;
+  /* turns Google's standard map dark with a warm gold cast */
+  filter: grayscale(1) invert(1) brightness(.78) contrast(1.15) sepia(.55) hue-rotate(-12deg) saturate(1.4);
+}
+.map__fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map__canvas::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, rgba(14,13,11,0) 35%, rgba(14,13,11,.55) 100%); }
+.map__pin { position: absolute; left: 50%; top: 50%; width: 46px; transform: translate(-50%, -88%); z-index: 2; filter: drop-shadow(0 6px 10px rgba(0,0,0,.5)); }
+.map__pin::before { content: ""; position: absolute; left: 50%; top: 88%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; border: 1px solid var(--gold); opacity: 0; animation: ping 2.6s ease-out infinite; }
+@keyframes ping { 0% { transform: scale(.3); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .map__pin::before { animation: none; } }
+.map__card { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; padding: 22px 24px; border-top: 1px solid rgba(184,146,74,.35); color: var(--on-dark); }
+.map__mark { width: 34px; height: 34px; flex: none; }
+.map__addr { display: grid; gap: 2px; flex: 1 1 200px; min-width: 0; }
+.map__addr strong { font-family: var(--f-display); font-weight: 400; font-size: 26px; line-height: 1.1; color: var(--gold-light); }
+.map__addr span { font-size: 15px; color: var(--on-dark-muted); }
+.map__card .btn { padding: 15px 20px; }
+.nw { white-space: nowrap; }
+@media (max-width: 860px) { .visit { grid-template-columns: 1fr; } .map__canvas { min-height: 320px; } }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(36px, 6vw, 96px); }
+.contact__aside { display: grid; gap: 26px; align-content: start; min-width: 0; }
+.contact__direct { display: grid; gap: 14px; padding-top: 24px; border-top: 1px solid var(--line); }
+.contact__direct div { display: grid; gap: 2px; }
+.contact__direct span { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
+.contact__direct a { font-size: 20px; text-decoration: none; user-select: all; }
+form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 20px; min-width: 0; }
+.field { display: grid; gap: 8px; min-width: 0; }
+.field--full { grid-column: 1 / -1; }
+label, legend { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--text); }
+input[type="text"], input[type="email"], input[type="tel"], textarea {
+  width: 100%; font: 400 17px/1.4 var(--f-body); color: var(--text);
+  background: var(--paper); border: 1px solid var(--line); border-radius: 0; padding: 15px 16px;
+  transition: border-color .2s, background .2s;
+}
+textarea { min-height: 130px; resize: vertical; }
+input:focus, textarea:focus { outline: none; border-color: var(--gold); background: #fff; }
+input:user-invalid { border-color: #a4452c; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span { display: inline-block; padding: 11px 16px; border: 1px solid var(--line); background: var(--paper); font-size: 14px; cursor: pointer; transition: all .2s; user-select: none; }
+.chip input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--gold-light); }
+.chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.form__foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; }
+.form__foot small { color: var(--muted); font-size: 13.5px; max-width: 40ch; }
+.form__done { grid-column: 1 / -1; background: var(--ink); color: var(--on-dark); padding: 36px; display: grid; gap: 10px; }
+.form__done h3 { font-family: var(--f-display); font-weight: 400; font-size: 44px; line-height: 1; margin: 0; color: var(--gold-light); }
+.form__done p { margin: 0; color: var(--on-dark-muted); }
+.form__error { grid-column: 1 / -1; color: #a4452c; font-size: 15px; margin: 0; }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { form { grid-template-columns: 1fr; } }
+
+/* Footer */
+.site-footer { background: var(--ink); color: var(--on-dark-muted); padding-block: 64px 40px; font-size: 14px; }
+.site-footer .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(244,241,234,.12); }
+.site-footer .brand span { font-size: 30px; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 14px 30px; align-items: center; }
+.site-footer nav a { text-decoration: none; letter-spacing: .14em; text-transform: uppercase; font-size: 12.5px; }
+.site-footer nav a:hover { color: var(--gold-light); }
+.site-footer .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: 13px; }
+.gold-rule { height: 2px; background: var(--gold-grad); }
+</style>
+</head>
+<body>
+
+
+<!-- Logo mark, traced from the Floors for Living logo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ffl-gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9a6a2e"/><stop offset=".35" stop-color="#d6bb6e"/>
+      <stop offset=".5" stop-color="#f2e396"/><stop offset=".65" stop-color="#d6bb6e"/><stop offset="1" stop-color="#9a6a2e"/>
+    </linearGradient>
+    <linearGradient id="ffl-gold-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e396"/><stop offset=".5" stop-color="#d6bb6e"/><stop offset="1" stop-color="#9a6a2e"/></linearGradient>
+    <symbol id="ffl-mark" viewBox="620 395 690 680">
+      <g fill="none" stroke="url(#ffl-gold)" stroke-width="18" stroke-linecap="round">
+        <path d="M648 415V1048M771 415V1048M900 415V1048M1029 415V1048M1158 415V1048M1283 415V1048"/>
+        <path d="M648 648H771M771 866H900M900 487H1029M1158 731H1283"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HomeGoodsStore","name":"Floors for Living",
+ "description":"Flooring showroom selling LVT, carpet, vinyl and bespoke floors, measured and fitted.",
+ "address":{"@type":"PostalAddress","streetAddress":"41 Galgate","addressLocality":"Barnard Castle","postalCode":"DL12 8EJ","addressCountry":"GB"},
+ "areaServed":"County Durham"}
+</script>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Floors for Living, home">
+      <svg aria-hidden="true"><use href="#ffl-mark"/></svg>
+      <span>FLOORS FOR LIVING</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#floors">Floors</a>
+      <a href="#about">About</a>
+      <a href="#visit">Visit us</a>
+      <a class="btn btn--gold" href="#contact">Contact us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO: swap images/hero.jpg for a real room shot (2200px wide, landscape) -->
+  <section class="hero">
+    <img class="hero__img" src="images/hero.jpg" alt="Victorian hallway with oak herringbone LVT and a wool stair runner with brass rods" fetchpriority="high">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--split"><span>Flooring showroom</span><span class="sep" aria-hidden="true"> &middot; </span><span>Barnard Castle</span></p>
+      <h1 class="display">Floors you’ll love coming <em>home</em> to</h1>
+      <p>LVT, carpet, vinyl and made-to-measure floors. See them in our Barnard Castle showroom, then let us measure and fit.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--gold" href="#contact">Book a home measure</a>
+        <a class="btn btn--ghost" href="#visit">Find the showroom</a>
+      </div>
+      <div class="hero__meta">
+        <span><b>LVT</b> &middot; Carpet &middot; Vinyl &middot; Bespoke</span>
+        <span class="tbc">Open Mon to Sat</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="band" id="about">
+    <div class="wrap intro">
+      <div class="intro__head">
+        <p class="eyebrow">Welcome</p>
+        <h2 class="display">Proper floors, fitted properly</h2>
+      </div>
+      <div class="intro__text">
+        <p class="lede">Floors for Living is a new flooring showroom in Barnard Castle. Come in, walk on the floors, and talk to people who fit them for a living.</p>
+        <p>We stock LVT, carpet and vinyl from brands we trust, and when a standard floor won't work we'll make something that does. Every job is measured and fitted by our own team, so the people who quote are the people who turn up.</p>
+        <dl class="facts">
+          <div><dt>Free</dt><dd>Home measure and quote</dd></div>
+          <div><dt>Showroom</dt><dd>All four ranges on display</dd></div>
+          <div><dt>Local</dt><dd>Fitters based in County Durham</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO BAND: swap video/floor-light.mp4 (landscape, 1920x1080) and its poster image to change -->
+  <section class="reel" aria-label="Sunlight moving across an oak herringbone floor">
+    <video class="reel__video" autoplay muted loop playsinline preload="metadata" poster="images/floor-light-poster.jpg">
+      <source src="video/floor-light.mp4" type="video/mp4">
+    </video>
+    <div class="reel__logo" role="img" aria-label="Floors for Living">
+      <svg class="reel__mark" viewBox="620 395 690 680" aria-hidden="true">
+        <defs><linearGradient id="ffl-gold-reel" gradientUnits="userSpaceOnUse" x1="640" y1="0" x2="1290" y2="0">
+          <stop offset="0" stop-color="#b07a35"/><stop offset=".35" stop-color="#dcc274"/><stop offset=".5" stop-color="#f6e89c"/><stop offset=".65" stop-color="#dcc274"/><stop offset="1" stop-color="#b07a35"/>
+        </linearGradient></defs>
+        <g fill="none" stroke="url(#ffl-gold-reel)" stroke-width="18" stroke-linecap="round">
+          <path pathLength="1" style="--d:0s" d="M648 415V1048"/><path pathLength="1" style="--d:.08s" d="M771 415V1048"/>
+          <path pathLength="1" style="--d:.16s" d="M900 415V1048"/><path pathLength="1" style="--d:.24s" d="M1029 415V1048"/>
+          <path pathLength="1" style="--d:.32s" d="M1158 415V1048"/><path pathLength="1" style="--d:.4s" d="M1283 415V1048"/>
+          <path pathLength="1" style="--d:.9s" d="M648 648H771"/><path pathLength="1" style="--d:1s" d="M771 866H900"/>
+          <path pathLength="1" style="--d:1.1s" d="M900 487H1029"/><path pathLength="1" style="--d:1.2s" d="M1158 731H1283"/>
+        </g>
+      </svg>
+      <span class="reel__word">FLOORS FOR LIVING</span>
+    </div>
+  </section>
+
+  <!-- FLOORS: each tile has its own image in /images -->
+  <section class="band band--stone" id="floors">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">What we sell</p>
+          <h2 class="display">Find your floor</h2>
+        </div>
+        <p class="lede" style="max-width:42ch">Four ranges, all on display in the showroom. Not sure which suits your room? Ask us, it's what we're here for.</p>
+      </div>
+      <div class="floors">
+        <a class="floor" href="#contact" data-floor="LVT">
+          <div class="floor__img"><img src="images/lvt.jpg" alt="Oak effect LVT planks in a kitchen diner with painted chairs" loading="lazy"><span class="floor__name">LVT</span></div>
+          <div class="floor__body">
+            <p>Luxury vinyl tile that looks like wood or stone and shrugs off muddy boots, spills and dog claws.</p>
+            <span class="floor__spec">Plank, herringbone &amp; tile</span>
+          </div>
+        </a>
+        <a class="floor" href="#contact" data-floor="Carpet">
+          <div class="floor__img"><img src="images/carpet.jpg" alt="Greige twist carpet in a blue bedroom with sunlight across the floor" loading="lazy"><span class="floor__name">Carpet</span></div>
+          <div class="floor__body">
+            <p>Twists, loops and saxonies for bedrooms, lounges and stairs. Soft underfoot and quiet.</p>
+            <span class="floor__spec">4m &amp; 5m roll widths</span>
+          </div>
+        </a>
+        <a class="floor" href="#contact" data-floor="Vinyl">
+          <div class="floor__img"><img src="images/vinyl.jpg" alt="Pale stone effect vinyl in a cream shaker kitchen" loading="lazy"><span class="floor__name">Vinyl</span></div>
+          <div class="floor__body">
+            <p>Sheet vinyl for kitchens, bathrooms and utilities. Warm, waterproof and wipes clean.</p>
+            <span class="floor__spec">2m, 3m &amp; 4m widths</span>
+          </div>
+        </a>
+        <a class="floor" href="#contact" data-floor="Bespoke">
+          <div class="floor__img"><img src="images/bespoke.jpg" alt="Bespoke bound wool rug with a charcoal border on walnut herringbone" loading="lazy"><span class="floor__name">Bespoke</span></div>
+          <div class="floor__body">
+            <p>Bound rugs, stair runners, borders and inlays, cut and finished to your measurements.</p>
+            <span class="floor__spec">Made to measure</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="band band--dark">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="display" style="max-width:14ch">From showroom to fitted floor</h2>
+      <div class="steps">
+        <div class="step"><div class="step__n">1</div><h3>Visit the showroom</h3><p>See the full ranges laid out and get advice on what suits your room.</p></div>
+        <div class="step"><div class="step__n">2</div><h3>We measure at home</h3><p>We come to you, check the subfloor and give you a fixed price with no surprises.</p></div>
+        <div class="step"><div class="step__n">3</div><h3>We fit it</h3><p>Our own fitters lay the floor, tidy up and take the old flooring away.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="band" id="visit">
+    <div class="wrap visit">
+      <div class="visit__info">
+        <div>
+          <p class="eyebrow">Visit us</p>
+          <h2 class="display">Come and walk on it</h2>
+        </div>
+        <dl>
+          <div><dt>Showroom</dt><dd>41 Galgate<br>Barnard Castle<br>DL12 8EJ</dd></div>
+          <div><dt>Opening hours</dt><dd>
+            <table class="hours"><tbody>
+              <tr><td>Monday to Friday</td><td class="tbc">9:00 to 17:00</td></tr>
+              <tr><td>Saturday</td><td class="tbc">9:00 to 16:00</td></tr>
+              <tr><td>Sunday</td><td>Closed</td></tr>
+            </tbody></table>
+          </dd></div>
+          <div><dt>Parking</dt><dd class="tbc">Free parking nearby</dd></div>
+        </dl>
+      </div>
+
+      <div class="map">
+        <div class="map__canvas">
+          <iframe src="https://maps.google.com/maps?q=41%20Galgate%2C%20Barnard%20Castle%20DL12%208EJ&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Floors for Living, 41 Galgate, Barnard Castle" tabindex="-1"></iframe>
+          <svg class="map__fallback" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="800" height="520" fill="#141210"/>
+            <path d="M-20 450 C 120 420, 210 490, 340 440 S 560 350, 820 400" stroke="#1f2a2c" stroke-width="30" fill="none"/>
+            <g stroke="#2b2721" stroke-linecap="round" fill="none">
+              <path d="M80 -10 L 300 520" stroke-width="10"/>
+              <path d="M-10 170 L 820 130" stroke-width="12"/>
+              <path d="M560 -10 L 640 520" stroke-width="8"/>
+              <path d="M-10 300 L 820 262" stroke-width="8"/>
+              <path d="M180 -10 L 250 300" stroke-width="6"/>
+              <path d="M660 150 L 820 70" stroke-width="6"/>
+            </g>
+            <path d="M360 -10 C 380 120, 410 200, 400 260 S 430 420, 450 530" stroke="#8f6a2c" stroke-width="12" stroke-linecap="round" fill="none" opacity=".75"/>
+            <text x="452" y="120" fill="#8f6a2c" font-family="Hanken Grotesk, Arial, sans-serif" font-size="13" letter-spacing="3" transform="rotate(78 452 120)">GALGATE</text>
+          </svg>
+          <div class="map__pin" aria-hidden="true">
+            <svg viewBox="-30 -46 60 76"><path d="M0 -42 C 18 -42, 28 -28, 28 -14 C 28 6, 0 26, 0 26 C 0 26, -28 6, -28 -14 C -28 -28, -18 -42, 0 -42 Z" fill="url(#ffl-gold-v)"/><circle cy="-15" r="8" fill="#0e0d0b"/></svg>
+          </div>
+        </div>
+        <div class="map__card">
+          <svg class="map__mark" aria-hidden="true"><use href="#ffl-mark"/></svg>
+          <div class="map__addr">
+            <strong>FLOORS FOR LIVING</strong>
+            <span>41 Galgate, Barnard Castle <span class="nw">DL12 8EJ</span></span>
+          </div>
+          <a class="btn btn--gold" href="https://www.google.com/maps/dir/?api=1&amp;destination=41+Galgate%2C+Barnard+Castle+DL12+8EJ" target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="band band--stone" id="contact">
+    <div class="wrap contact">
+      <div class="contact__aside">
+        <div>
+          <p class="eyebrow">Contact us</p>
+          <h2 class="display">Tell us about your room</h2>
+        </div>
+        <p class="lede">Send a few details and we'll come back to arrange a free home measure, usually the same day.</p>
+        <div class="contact__direct">
+          <div><span>Call</span><a class="tbc" href="tel:01833000000">01833 000 000</a></div>
+          <div><span>Email</span><a class="tbc" href="mailto:hello@floorsforliving.co.uk">hello@floorsforliving.co.uk</a></div>
+        </div>
+      </div>
+
+      <!--
+        FORM: to make this send for real, sign up to a form service (e.g. Formspree), then put the
+        endpoint URL in data-endpoint below. Leave it empty and the form just shows the thank-you message.
+      -->
+      <form id="enquiry" data-endpoint="" novalidate>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+        <div class="field"><label for="f-postcode">Postcode</label><input id="f-postcode" name="postcode" type="text" autocomplete="postal-code"></div>
+        <fieldset class="field--full">
+          <legend>I'm interested in</legend>
+          <div class="chips">
+            <label class="chip"><input id="f-lvt" type="checkbox" name="interest" value="LVT"><span>LVT</span></label>
+            <label class="chip"><input id="f-carpet" type="checkbox" name="interest" value="Carpet"><span>Carpet</span></label>
+            <label class="chip"><input id="f-vinyl" type="checkbox" name="interest" value="Vinyl"><span>Vinyl</span></label>
+            <label class="chip"><input id="f-bespoke" type="checkbox" name="interest" value="Bespoke"><span>Bespoke</span></label>
+            <label class="chip"><input id="f-unsure" type="checkbox" name="interest" value="Not sure yet"><span>Not sure yet</span></label>
+          </div>
+        </fieldset>
+        <div class="field field--full"><label for="f-msg">Rooms and anything else</label><textarea id="f-msg" name="message" placeholder="e.g. Kitchen and hallway, about 25m², dog-friendly please"></textarea></div>
+        <p class="form__error" id="f-error" hidden></p>
+        <div class="form__foot">
+          <button class="btn btn--ink" type="submit">Send enquiry</button>
+          <small>We'll only use your details to reply to this enquiry.</small>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div class="gold-rule"></div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#top" aria-label="Floors for Living, back to top">
+        <svg aria-hidden="true" style="width:40px;height:40px"><use href="#ffl-mark"/></svg>
+        <span>FLOORS FOR LIVING</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="#floors">Floors</a>
+        <a href="#about">About</a>
+        <a href="#visit">Visit us</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="tbc">Facebook</a>
+      </nav>
+    </div>
+    <div class="bottom">
+      <span>&copy; <span id="yr">2026</span> Floors for Living, 41 Galgate, Barnard Castle DL12 8EJ</span>
+      <span>LVT &middot; Carpet &middot; Vinyl &middot; Bespoke</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
+
+  // Clicking a floor tile pre-ticks that floor in the form
+  document.querySelectorAll('.floor[data-floor]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var v = a.getAttribute('data-floor');
+      document.querySelectorAll('input[name="interest"]').forEach(function (c) { if (c.value === v) c.checked = true; });
+    });
+  });
+
+  var reel = document.querySelector('.reel');
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reel) {
+    var vid = reel.querySelector('video');
+    if (calm && vid) { vid.removeAttribute('autoplay'); vid.pause(); }
+    if (!calm && 'IntersectionObserver' in window && reel.getBoundingClientRect().top > window.innerHeight) {
+      reel.classList.add('is-waiting');
+      var io = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { reel.classList.remove('is-waiting'); reel.classList.add('is-playing'); io.disconnect(); }
+      }, { threshold: 0.45 });
+      io.observe(reel);
+    }
+  }
+
+  var form = document.getElementById('enquiry');
+  var err = document.getElementById('f-error');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nameEl = document.getElementById('f-name'), phoneEl = document.getElementById('f-phone');
+    var name = nameEl.value.trim(), phone = phoneEl.value.trim();
+    if (!name || !phone) {
+      err.textContent = 'Please add your name and a phone number so we can call you back.';
+      err.hidden = false;
+      (name ? phoneEl : nameEl).focus();
+      return;
+    }
+    err.hidden = true;
+    var done = function () {
+      form.innerHTML = '<div class="form__done" role="status"><h3>Thanks, ' + name.split(' ')[0].replace(/[<>&"]/g, '') + '</h3><p>Your enquiry is with us. We’ll be in touch soon to book your home measure.</p></div>';
+    };
+    var endpoint = form.getAttribute('data-endpoint');
+    if (!endpoint) { done(); return; }
+    var btn = form.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(); done(); })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = 'Send enquiry';
+        err.textContent = 'That didn’t send. Please try again, or give us a call.';
+        err.hidden = false;
+      });
+  });
+})();
+</script>
+
+</body>
+</html>
