@@ -118,10 +118,40 @@ h2.display { font-size: clamp(40px, 6vw, 72px); }
 .brand svg { width: 34px; height: 34px; flex: none; }
 .brand span { font-family: var(--f-display); font-size: 25px; letter-spacing: .02em; white-space: nowrap; }
 .nav { display: flex; align-items: center; gap: 34px; }
-.nav a:not(.btn) { font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--on-dark-muted); transition: color .2s; }
+.nav a:not(.btn) { position: relative; padding-block: 6px; font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--on-dark-muted); transition: color .2s; }
+.nav a:not(.btn)::after { content: ""; position: absolute; left: 0; right: .14em; bottom: -2px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
 .nav a:not(.btn):hover { color: var(--gold-light); }
+.nav a.is-active { color: var(--gold-light); }
+.nav a.is-active::after { transform: scaleX(1); }
+section[id] { scroll-margin-top: calc(77px + env(safe-area-inset-top, 0px)); }  /* anchor jumps land below the sticky header */
 .nav .btn { padding: 13px 18px; font-size: 12px; }
-@media (max-width: 860px) { .nav a:not(.btn) { display: none; } }
+@media (max-width: 1040px) { .nav { gap: 22px; } .nav a:not(.btn) { font-size: 12px; letter-spacing: .1em; } .nav a:not(.btn)::after { right: .1em; } }
+
+/* Menu button and full-screen menu (under 860px) */
+.menu-btn { display: none; width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.menu-btn span { position: absolute; left: 10px; right: 10px; height: 1.5px; background: var(--gold); transition: transform .3s, opacity .2s; }
+.menu-btn span:nth-child(1) { top: 14px; } .menu-btn span:nth-child(2) { top: 21px; } .menu-btn span:nth-child(3) { top: 28px; }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu { display: none; }
+html.menu-open, html.menu-open body { overflow: hidden; }
+@media (max-width: 860px) {
+  .nav a:not(.btn) { display: none; }
+  .nav { gap: 14px; }
+  .menu-btn { display: block; }
+  .menu { position: fixed; inset: 0; z-index: 49; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; overflow-y: auto; background: var(--ink); color: var(--on-dark);
+    padding: calc(76px + env(safe-area-inset-top, 0px) + 28px) var(--gutter-r) calc(32px + env(safe-area-inset-bottom, 0px)) var(--gutter-l);
+    opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; }
+  .menu.is-open { opacity: 1; visibility: visible; transition: opacity .25s; }
+  .menu__nav { display: grid; }
+  .menu__nav a { font-family: var(--f-display); font-size: clamp(44px, 12vw, 64px); line-height: 1.1; padding: 10px 0; text-decoration: none; color: var(--on-dark); border-bottom: 1px solid rgba(244,241,234,.12); transition: color .2s; }
+  .menu__nav a:hover, .menu__nav a:focus-visible { color: var(--gold-light); }
+  .menu__foot { display: grid; gap: 6px; }
+  .menu__tel { font-family: var(--f-display); font-size: 34px; line-height: 1.1; color: var(--gold); text-decoration: none; }
+  .menu__foot p { margin: 0; color: var(--on-dark-muted); font-size: 15px; }
+}
+@media (max-width: 760px) { .nav .btn { display: none; } }
 @media (max-width: 420px) { .brand span { font-size: 20px; } .nav .btn { padding: 11px 12px; letter-spacing: .1em; } }
 
 /* Hero */
@@ -182,7 +212,16 @@ h2.display { font-size: clamp(40px, 6vw, 72px); }
 .floor__body p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); }
 .floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-dark); border-top: 1px solid var(--line); padding-top: 12px; }
 @media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .floors { grid-template-columns: 1fr; } .floor__img { aspect-ratio: 5 / 4; } }
+.floors-dots { display: none; }
+@media (max-width: 760px) {
+  .floors { position: relative; display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(-1 * var(--gutter-l)) calc(-1 * var(--gutter-r)); padding-inline: var(--gutter-l) var(--gutter-r); scroll-padding-inline: var(--gutter-l); }
+  .floors::-webkit-scrollbar { display: none; }
+  .floor { flex: 0 0 min(80vw, 340px); scroll-snap-align: start; }
+  .floors-dots { display: flex; justify-content: center; gap: 8px; margin-top: 26px; }
+  .floors-dots span { width: 7px; height: 7px; border-radius: 4px; background: var(--line); transition: width .25s, background .25s; }
+  .floors-dots span.is-active { width: 22px; background: var(--gold); }
+}
 
 /* Brands: slow marquee. The track holds the logo list four times and slides by half, so the loop has no seam. */
 .brands { background: var(--paper); border-block: 1px solid var(--line); padding-block: 34px 38px; overflow: hidden; }
@@ -305,6 +344,16 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { form { grid-template-columns: 1fr; } }
 
+/* Call bar: phones only */
+.callbar { display: none; }
+@media (max-width: 760px) {
+  .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; background: var(--ink); border-top: 1px solid rgba(184,146,74,.4); padding-bottom: env(safe-area-inset-bottom, 0px); transition: transform .3s; }
+  .callbar a { flex: 1 1 0; display: grid; place-items: center; min-height: 52px; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; }
+  .callbar a + a { border-left: 1px solid rgba(184,146,74,.3); }
+  .callbar.is-hidden { transform: translateY(100%); visibility: hidden; transition: transform .3s, visibility 0s .3s; }
+  .site-footer { padding-bottom: calc(40px + 52px + env(safe-area-inset-bottom, 0px)); }
+}
+
 /* Footer */
 .site-footer { background: var(--ink); color: var(--on-dark-muted); padding-block: 64px 40px; font-size: 14px; }
 .site-footer .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(244,241,234,.12); }
@@ -358,12 +407,29 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#floors">Floors</a>
-      <a href="#about">About</a>
-      <a href="#visit">Visit us</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#british">Buy British</a>
+      <a href="#visit">Visit</a>
       <a class="btn btn--gold" href="#contact">Contact us</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
 </header>
+
+<!-- Full-screen menu for narrow screens (opened by the button in the header) -->
+<div class="menu" id="menu">
+  <nav class="menu__nav" aria-label="Menu">
+    <a href="#floors">Floors</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#british">Buy British</a>
+    <a href="#visit">Visit us</a>
+    <a href="#contact">Contact us</a>
+  </nav>
+  <div class="menu__foot">
+    <a class="menu__tel" href="tel:01833695875">01833 695875</a>
+    <p>41 Galgate, Barnard Castle <span class="nw">DL12 8EJ</span></p>
+  </div>
+</div>
 
 <main id="top">
   <!-- HERO: swap images/hero.jpg for a real room shot (2200px wide, landscape) -->
@@ -480,11 +546,25 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
           </div>
         </a>
       </div>
+      <div class="floors-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="band band--dark" id="how-it-works">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="display" style="max-width:16ch">Your dream floor in three simple steps</h2>
+      <div class="steps">
+        <div class="step"><div class="step__n">1</div><h3>Come and see us</h3><p>Browse the samples, feel the carpets and tell us about the room. No pressure and no hard sell.</p></div>
+        <div class="step"><div class="step__n">2</div><h3>Measure up</h3><p>We’ll come out and measure, or bring us your sizes. Either way you get a clear price before anything’s ordered.</p></div>
+        <div class="step"><div class="step__n">3</div><h3>Hassle-free fitting</h3><p>We arrange it all with our network of local fitters, so you can sit back. Prefer to fit it yourself? That’s fine too.</p></div>
+      </div>
     </div>
   </section>
 
   <!-- BRANDS: logos live in /brands. To add one, add an <li> to all four lists (only the first needs alt text) -->
-  <section class="brands" aria-labelledby="brands-h">
+  <section class="brands" id="brands" aria-labelledby="brands-h">
     <div class="wrap"><h2 class="eyebrow" id="brands-h">Brands we stock</h2></div>
     <div class="brands__viewport">
       <div class="brands__track">
@@ -525,7 +605,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
   </section>
 
   <!-- BUY BRITISH: swap british-wool.jpg to change the photo (landscape, sheep on the right) -->
-  <section class="wool" aria-labelledby="wool-h">
+  <section class="wool" id="british" aria-labelledby="wool-h">
     <div class="wool__bg" role="img" aria-label="Sheep grazing on Teesdale fell pasture beside a dry stone wall">
       <img src="british-wool.jpg" alt="" width="1376" height="768" loading="lazy">
     </div>
@@ -540,19 +620,6 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
           <div><dt>British mills</dt><dd>Woven here</dd></div>
           <div><dt>Naturally warm</dt><dd>And flame resistant</dd></div>
         </dl>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="band band--dark">
-    <div class="wrap">
-      <p class="eyebrow">How it works</p>
-      <h2 class="display" style="max-width:16ch">Your dream floor in three simple steps</h2>
-      <div class="steps">
-        <div class="step"><div class="step__n">1</div><h3>Come and see us</h3><p>Browse the samples, feel the carpets and tell us about the room. No pressure and no hard sell.</p></div>
-        <div class="step"><div class="step__n">2</div><h3>Measure up</h3><p>We’ll come out and measure, or bring us your sizes. Either way you get a clear price before anything’s ordered.</p></div>
-        <div class="step"><div class="step__n">3</div><h3>Hassle-free fitting</h3><p>We arrange it all with our network of local fitters, so you can sit back. Prefer to fit it yourself? That’s fine too.</p></div>
       </div>
     </div>
   </section>
@@ -658,6 +725,11 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
   </section>
 </main>
 
+<div class="callbar" id="callbar">
+  <a href="tel:01833695875">Call</a>
+  <a href="#contact">Enquire</a>
+</div>
+
 <div class="gold-rule"></div>
 <footer class="site-footer">
   <div class="wrap">
@@ -668,8 +740,9 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
       </a>
       <nav aria-label="Footer">
         <a href="#floors">Floors</a>
-        <a href="#about">About</a>
-        <a href="#visit">Visit us</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#british">Buy British</a>
+        <a href="#visit">Visit</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -705,6 +778,83 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
       }, { threshold: 0.45 });
       io.observe(reel);
     }
+  }
+
+  // Header: highlight the link for the section in view
+  var navLinks = [].slice.call(document.querySelectorAll('.nav a[href^="#"]:not(.btn)'));
+  var spy = ['floors', 'how-it-works', 'british', 'visit', 'contact'];
+  var inView = {};
+  function markActive() {
+    var cur = null;
+    spy.forEach(function (id) { if (!cur && inView[id]) cur = id; });
+    navLinks.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + cur;
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var spyIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { inView[e.target.id] = e.isIntersecting; });
+      markActive();
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    spy.forEach(function (id) { var el = document.getElementById(id); if (el) spyIO.observe(el); });
+
+    // Call bar: tuck it away while the contact section is on screen
+    var bar = document.getElementById('callbar'), contact = document.getElementById('contact');
+    if (bar && contact) {
+      new IntersectionObserver(function (es) { bar.classList.toggle('is-hidden', es[0].isIntersecting); }).observe(contact);
+    }
+  }
+
+  // Mobile menu: scroll lock, focus kept inside, Escape and link taps close it
+  var menuBtn = document.getElementById('menu-btn'), menu = document.getElementById('menu');
+  var shut = [].slice.call(document.querySelectorAll('main, .site-footer, .callbar, .site-header .brand'));
+  var wide = window.matchMedia ? window.matchMedia('(min-width: 861px)') : null;
+  function menuOpen() { return menu.classList.contains('is-open'); }
+  function setMenu(open, toButton) {
+    menu.classList.toggle('is-open', open);
+    document.documentElement.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    shut.forEach(function (el) { if (open) el.setAttribute('inert', ''); else el.removeAttribute('inert'); });
+    if (open) menu.querySelector('a').focus();
+    else if (toButton) menuBtn.focus({ preventScroll: true });
+  }
+  menuBtn.addEventListener('click', function () { setMenu(!menuOpen(), true); });
+  menu.addEventListener('click', function (e) {
+    if (!e.target.closest('a')) return;
+    setMenu(false, false);
+    // the anchor jump moves focus itself, so hand it back to the button just after
+    setTimeout(function () { menuBtn.focus({ preventScroll: true }); }, 60);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!menuOpen()) return;
+    if (e.key === 'Escape') { setMenu(false, true); return; }
+    if (e.key !== 'Tab') return;
+    var items = [menuBtn].concat([].slice.call(menu.querySelectorAll('a')));
+    var first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (items.indexOf(document.activeElement) === -1) { e.preventDefault(); first.focus(); }
+  });
+  if (wide && wide.addEventListener) wide.addEventListener('change', function () { if (wide.matches && menuOpen()) setMenu(false, false); });
+
+  // Floor tiles: dots follow the swipe row on phones
+  var rail = document.querySelector('.floors'), dots = [].slice.call(document.querySelectorAll('.floors-dots span'));
+  if (rail && dots.length) {
+    var ticking = false;
+    var syncDots = function () {
+      ticking = false;
+      var tiles = rail.children, r = rail.getBoundingClientRect(), idx = 0, best = 1e9;
+      if (rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 4) idx = tiles.length - 1;
+      else for (var i = 0; i < tiles.length; i++) {
+        var d = Math.abs(tiles[i].getBoundingClientRect().left - r.left);
+        if (d < best) { best = d; idx = i; }
+      }
+      dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === idx); });
+    };
+    rail.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(syncDots); } }, { passive: true });
   }
 
   var form = document.getElementById('enquiry');
