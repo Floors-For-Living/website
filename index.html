@@ -184,6 +184,40 @@ h2.display { font-size: clamp(40px, 6vw, 72px); }
 @media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); gap: 36px 18px; } }
 @media (max-width: 520px) { .floors { grid-template-columns: 1fr; } .floor__img { aspect-ratio: 5 / 4; } }
 
+/* Brands: slow marquee. The track holds the logo list four times and slides by half, so the loop has no seam. */
+.brands { background: var(--paper); border-block: 1px solid var(--line); padding-block: 34px 38px; overflow: hidden; }
+.brands .eyebrow { text-align: center; margin-bottom: 26px; }
+.brands__viewport { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.brands__track { display: flex; width: max-content; animation: brands-scroll 60s linear infinite; }
+.brands:hover .brands__track { animation-play-state: paused; }
+.brands__list { display: flex; align-items: center; flex: none; margin: 0; padding: 0 0 0 clamp(44px, 6vw, 84px); list-style: none; gap: clamp(44px, 6vw, 84px); }
+.brands__list img { height: var(--h, 44px); width: auto; max-width: none; filter: grayscale(1); opacity: .62; transition: opacity .3s, filter .3s; }
+.brands__list li:hover img { filter: none; opacity: 1; }
+@keyframes brands-scroll { to { transform: translateX(-50%); } }
+@media (max-width: 520px) { .brands__list img { height: calc(var(--h, 44px) * .8); } }
+@media (prefers-reduced-motion: reduce) {
+  .brands__viewport { -webkit-mask-image: none; mask-image: none; }
+  .brands__track { animation: none; display: block; width: auto; padding-inline: var(--gutter-l) var(--gutter-r); }
+  .brands__list { flex-wrap: wrap; justify-content: center; padding: 0; gap: 28px clamp(36px, 5vw, 64px); max-width: var(--wrap); margin-inline: auto; }
+  .brands__list[aria-hidden="true"] { display: none; }
+}
+
+/* Finishing touches: deliberately lighter than the floor tiles, line icons and text only */
+.extras { display: grid; grid-template-columns: repeat(5, 1fr); margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.extra { padding: 30px 22px 0 0; min-width: 0; }
+.extra + .extra { padding-left: 22px; border-left: 1px solid var(--line); }
+.extra__icon { width: 52px; height: 52px; display: block; margin-bottom: 18px; fill: none; stroke: var(--gold); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.extra h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; line-height: 1.4; }
+.extra p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted); }
+.extras-foot { margin-top: 34px; }
+@media (max-width: 1020px) {
+  .extras { grid-template-columns: 1fr; }
+  .extra, .extra + .extra { display: grid; grid-template-columns: 52px 1fr; column-gap: 20px; align-items: start; padding: 22px 0; border-left: 0; }
+  .extra + .extra { border-top: 1px solid var(--line); }
+  .extra__icon { grid-row: 1 / span 2; margin: 2px 0 0; }
+  .extra p { max-width: 52ch; }
+}
+
 /* Process */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid rgba(184,146,74,.35); }
 .step { padding: 32px 32px 8px 0; min-width: 0; }
@@ -297,7 +331,10 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
  "telephone":"+441833695875","email":"sales@floorsforliving.co.uk",
  "address":{"@type":"PostalAddress","streetAddress":"41 Galgate","addressLocality":"Barnard Castle","addressRegion":"County Durham","postalCode":"DL12 8EJ","addressCountry":"GB"},
  "areaServed":["Barnard Castle","Teesdale","County Durham"],
- "hasMap":"https://www.google.com/maps/search/?api=1&query=41+Galgate%2C+Barnard+Castle+DL12+8EJ"}
+ "hasMap":"https://www.google.com/maps/search/?api=1&query=41+Galgate%2C+Barnard+Castle+DL12+8EJ",
+ "openingHoursSpecification":[
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"17:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"10:00","closes":"16:00"}]}
 </script>
 
 <header class="site-header">
@@ -329,7 +366,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
       </div>
       <div class="hero__meta">
         <span><b>Carpet</b> &middot; LVT &middot; Vinyl &middot; Real wood &middot; Bespoke</span>
-        <span class="tbc">Open Mon to Sat</span>
+        <span>Open 7 days</span>
       </div>
     </div>
   </section>
@@ -419,6 +456,88 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
     </div>
   </section>
 
+  <!-- BRANDS: logos live in /brands. To add one, add an <li> to all four lists (only the first needs alt text) -->
+  <section class="brands" aria-labelledby="brands-h">
+    <div class="wrap"><h2 class="eyebrow" id="brands-h">Brands we stock</h2></div>
+    <div class="brands__viewport">
+      <div class="brands__track">
+        <ul class="brands__list">
+          <li><img src="brands/cormar.png" alt="Cormar Carpet Co" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/artisan.png" alt="Artisan Luxury Flooring" style="--h:52px" height="52" loading="lazy"></li>
+          <li><img src="brands/tredaire.png" alt="Tredaire" style="--h:30px" height="30" loading="lazy"></li>
+          <li><img src="brands/penthouse.png" alt="Penthouse Carpets" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/westex.png" alt="Westex" style="--h:50px" height="50" loading="lazy"></li>
+          <li><img src="brands/axminster.svg" alt="Axminster" style="--h:38px" height="38" loading="lazy"></li>
+        </ul>
+        <ul class="brands__list" aria-hidden="true">
+          <li><img src="brands/cormar.png" alt="" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/artisan.png" alt="" style="--h:52px" height="52" loading="lazy"></li>
+          <li><img src="brands/tredaire.png" alt="" style="--h:30px" height="30" loading="lazy"></li>
+          <li><img src="brands/penthouse.png" alt="" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/westex.png" alt="" style="--h:50px" height="50" loading="lazy"></li>
+          <li><img src="brands/axminster.svg" alt="" style="--h:38px" height="38" loading="lazy"></li>
+        </ul>
+        <ul class="brands__list" aria-hidden="true">
+          <li><img src="brands/cormar.png" alt="" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/artisan.png" alt="" style="--h:52px" height="52" loading="lazy"></li>
+          <li><img src="brands/tredaire.png" alt="" style="--h:30px" height="30" loading="lazy"></li>
+          <li><img src="brands/penthouse.png" alt="" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/westex.png" alt="" style="--h:50px" height="50" loading="lazy"></li>
+          <li><img src="brands/axminster.svg" alt="" style="--h:38px" height="38" loading="lazy"></li>
+        </ul>
+        <ul class="brands__list" aria-hidden="true">
+          <li><img src="brands/cormar.png" alt="" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/artisan.png" alt="" style="--h:52px" height="52" loading="lazy"></li>
+          <li><img src="brands/tredaire.png" alt="" style="--h:30px" height="30" loading="lazy"></li>
+          <li><img src="brands/penthouse.png" alt="" style="--h:46px" height="46" loading="lazy"></li>
+          <li><img src="brands/westex.png" alt="" style="--h:50px" height="50" loading="lazy"></li>
+          <li><img src="brands/axminster.svg" alt="" style="--h:38px" height="38" loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINISHING TOUCHES: line icons are inline SVG, drawn in the same thin-line style as the logo mark -->
+  <section class="band band--stone" id="accessories" aria-labelledby="extras-h">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Accessories</p>
+          <h2 class="display" id="extras-h">The finishing touches</h2>
+        </div>
+        <p class="lede" style="max-width:42ch">Available whether you’re having your floor fitted or buying supply only, so everything comes from one place.</p>
+      </div>
+      <ul class="extras">
+        <li class="extra">
+          <svg class="extra__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 22 32 12l24 10-24 10z"/><path d="m8 32 24 10 24-10"/><path d="m8 42 24 10 24-10"/></svg>
+          <h3>Underlay</h3>
+          <p>Softer and warmer underfoot, and it helps your floor wear well for years longer.</p>
+        </li>
+        <li class="extra">
+          <svg class="extra__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 10v44M52 10v44"/><rect x="12" y="38" width="40" height="9" rx="1.5"/><circle cx="22" cy="42.5" r="1.4"/><circle cx="42" cy="42.5" r="1.4"/></svg>
+          <h3>Door bars and thresholds</h3>
+          <p>A neat, safe join where two floors meet, so edges don’t lift, fray or trip anyone.</p>
+        </li>
+        <li class="extra">
+          <svg class="extra__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54h14V41h14V28h14V15h6"/><path d="M22 36h14M36 23h14M50 10h6"/></svg>
+          <h3>Stair nosings</h3>
+          <p>Protects the edge of every step, where stairs wear first, and gives a clean finish.</p>
+        </li>
+        <li class="extra">
+          <svg class="extra__icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="42" width="48" height="8" rx="1.5"/><path d="m15 42 3-12M25 42l3-12M35 42l3-12M45 42l3-12"/><path d="M14 46.5h.01M30 46.5h.01M46 46.5h.01"/></svg>
+          <h3>Gripper and fitting accessories</h3>
+          <p>The unglamorous bits that keep carpet tight, flat and free of wrinkles.</p>
+        </li>
+        <li class="extra">
+          <svg class="extra__icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M16 24l4 30h24l4-30"/><ellipse cx="32" cy="24" rx="16" ry="4"/><path d="M19 22c1-12 25-12 26 0"/></svg>
+          <h3>Adhesives and smoothing compound</h3>
+          <p>A flat, properly bonded base is what makes a new floor look right and stay put.</p>
+        </li>
+      </ul>
+      <p class="extras-foot"><a class="link-arrow" href="#contact">Ask what you’ll need</a></p>
+    </div>
+  </section>
+
   <!-- PROCESS -->
   <section class="band band--dark">
     <div class="wrap">
@@ -444,9 +563,8 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
           <div><dt>Showroom</dt><dd>41 Galgate<br>Barnard Castle<br>DL12 8EJ</dd></div>
           <div><dt>Opening hours</dt><dd>
             <table class="hours"><tbody>
-              <tr><td>Monday to Friday</td><td class="tbc">9:00 to 17:00</td></tr>
-              <tr><td>Saturday</td><td class="tbc">9:00 to 16:00</td></tr>
-              <tr><td>Sunday</td><td>Closed</td></tr>
+              <tr><td>Monday to Saturday</td><td>9:00 to 17:00</td></tr>
+              <tr><td>Sunday</td><td>10:00 to 16:00</td></tr>
             </tbody></table>
           </dd></div>
           <div><dt>Parking</dt><dd class="tbc">Free parking nearby</dd></div>
