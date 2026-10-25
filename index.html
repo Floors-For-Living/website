@@ -171,7 +171,7 @@ h2.display { font-size: clamp(40px, 6vw, 72px); }
 /* Floors grid */
 .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 60px); }
 .section-head > div { min-width: 0; }
-.floors { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.floors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px 18px; }
 .floor { position: relative; display: flex; flex-direction: column; text-decoration: none; color: var(--text); min-width: 0; }
 .floor__img { position: relative; overflow: hidden; aspect-ratio: 4 / 5; background: var(--ink-2); }
 .floor__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
@@ -181,7 +181,7 @@ h2.display { font-size: clamp(40px, 6vw, 72px); }
 .floor__body { padding: 20px 2px 0; display: grid; gap: 12px; }
 .floor__body p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); }
 .floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-dark); border-top: 1px solid var(--line); padding-top: 12px; }
-@media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); gap: 36px 18px; } }
+@media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .floors { grid-template-columns: 1fr; } .floor__img { aspect-ratio: 5 / 4; } }
 
 /* Brands: slow marquee. The track holds the logo list four times and slides by half, so the loop has no seam. */
@@ -421,21 +421,21 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
           <p class="eyebrow">What we sell</p>
           <h2 class="display">Find your floor</h2>
         </div>
-        <p class="lede" style="max-width:42ch">Tell us how the room gets used and we’ll point you to the right floor. All four ranges are on display on Galgate.</p>
+        <p class="lede" style="max-width:42ch">Tell us how the room gets used and we’ll point you to the right floor. Samples of every range are on display on Galgate.</p>
       </div>
       <div class="floors">
-        <a class="floor" href="#contact" data-floor="LVT">
-          <div class="floor__img"><img src="lvt.jpg" alt="Oak effect LVT planks in a kitchen diner with painted chairs" loading="lazy"><span class="floor__name">LVT</span></div>
-          <div class="floor__body">
-            <p>Looks like wood or stone, but shrugs off muddy boots, wet paws and spilt tea. A quick mop and it’s done.</p>
-            <span class="floor__spec">Plank, herringbone &amp; tile</span>
-          </div>
-        </a>
         <a class="floor" href="#contact" data-floor="Carpet">
           <div class="floor__img"><img src="carpet.jpg" alt="Greige twist carpet in a blue bedroom with sunlight across the floor" loading="lazy"><span class="floor__name">Carpet</span></div>
           <div class="floor__body">
             <p>Warm and quiet underfoot for bedrooms, lounges and stairs, in hard-wearing ranges that keep looking good where everyone walks.</p>
             <span class="floor__spec">4m &amp; 5m roll widths</span>
+          </div>
+        </a>
+        <a class="floor" href="#contact" data-floor="LVT">
+          <div class="floor__img"><img src="lvt.jpg" alt="Oak effect LVT planks in a kitchen diner with painted chairs" loading="lazy"><span class="floor__name">LVT</span></div>
+          <div class="floor__body">
+            <p>Looks like wood or stone, but shrugs off muddy boots, wet paws and spilt tea. A quick mop and it’s done.</p>
+            <span class="floor__spec">Plank, herringbone &amp; tile</span>
           </div>
         </a>
         <a class="floor" href="#contact" data-floor="Vinyl">
@@ -445,11 +445,25 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
             <span class="floor__spec">2m, 3m &amp; 4m widths</span>
           </div>
         </a>
+        <a class="floor" href="#contact" data-floor="Real wood">
+          <div class="floor__img"><img src="realwood.jpg" alt="Wide plank oak floor in a living room with a cast iron fireplace and a linen armchair" loading="lazy"><span class="floor__name">Real wood</span></div>
+          <div class="floor__body">
+            <p>The real thing, with grain and character no copy can match. Engineered and solid oak that only gets better with age.</p>
+            <span class="floor__spec">Engineered &amp; solid</span>
+          </div>
+        </a>
         <a class="floor" href="#contact" data-floor="Bespoke">
           <div class="floor__img"><img src="bespoke.jpg" alt="Bespoke bound wool rug with a charcoal border on walnut herringbone" loading="lazy"><span class="floor__name">Bespoke</span></div>
           <div class="floor__body">
             <p>Rugs, stair runners and borders made to your exact measurements. For awkward spaces, old houses and the room you want just right.</p>
             <span class="floor__spec">Made to measure</span>
+          </div>
+        </a>
+        <a class="floor" href="#contact" data-floor="Accessories">
+          <div class="floor__img"><img src="accessories.jpg" alt="Brushed brass door bar joining grey carpet to an oak effect floor in a doorway" loading="lazy"><span class="floor__name">Accessories</span></div>
+          <div class="floor__body">
+            <p>The finishing touches that make a floor look right and last longer. Underlay, door bars, stair nosings and more.</p>
+            <span class="floor__spec">The finishing touches</span>
           </div>
         </a>
       </div>
@@ -632,10 +646,12 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
         <fieldset class="field--full">
           <legend>I'm interested in</legend>
           <div class="chips">
-            <label class="chip"><input id="f-lvt" type="checkbox" name="interest" value="LVT"><span>LVT</span></label>
             <label class="chip"><input id="f-carpet" type="checkbox" name="interest" value="Carpet"><span>Carpet</span></label>
+            <label class="chip"><input id="f-lvt" type="checkbox" name="interest" value="LVT"><span>LVT</span></label>
             <label class="chip"><input id="f-vinyl" type="checkbox" name="interest" value="Vinyl"><span>Vinyl</span></label>
+            <label class="chip"><input id="f-realwood" type="checkbox" name="interest" value="Real wood"><span>Real wood</span></label>
             <label class="chip"><input id="f-bespoke" type="checkbox" name="interest" value="Bespoke"><span>Bespoke</span></label>
+            <label class="chip"><input id="f-accessories" type="checkbox" name="interest" value="Accessories"><span>Accessories</span></label>
             <label class="chip"><input id="f-unsure" type="checkbox" name="interest" value="Not sure yet"><span>Not sure yet</span></label>
           </div>
         </fieldset>
