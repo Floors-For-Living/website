@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://floorsforliving.co.uk/sitemap.xml
