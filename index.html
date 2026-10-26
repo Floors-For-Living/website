@@ -697,7 +697,8 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
         FORM: to make this send for real, sign up to a form service (e.g. Formspree), then put the
         endpoint URL in data-endpoint below. Leave it empty and the form just shows the thank-you message.
       -->
-      <form id="enquiry" data-endpoint="" novalidate>
+      <form id="enquiry" data-endpoint="https://gprluocthtaaggxfmjta.supabase.co/functions/v1/enquiry" novalidate>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
         <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
         <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
         <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
@@ -715,6 +716,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
           </div>
         </fieldset>
         <div class="field field--full"><label for="f-msg">Tell us about the room</label><textarea id="f-msg" name="message" placeholder="e.g. Hall and stairs. Carpet’s worn through and the dog brings half the field in."></textarea></div>
+        <div class="cf-turnstile field--full" data-sitekey="0x4AAAAAAFm0JXqKBrJMHnNr"></div>
         <p class="form__error" id="f-error" hidden></p>
         <div class="form__foot">
           <button class="btn btn--ink" type="submit">Send enquiry</button>
@@ -724,6 +726,8 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
     </div>
   </section>
 </main>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <div class="callbar" id="callbar">
   <a href="tel:01833695875">Call</a>
@@ -879,6 +883,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
     fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
       .then(function (r) { if (!r.ok) throw new Error(); done(); })
       .catch(function () {
+        if (window.turnstile) window.turnstile.reset();
         btn.disabled = false; btn.textContent = 'Send enquiry';
         err.textContent = 'That didn’t send. Please try again, or give us a call.';
         err.hidden = false;
