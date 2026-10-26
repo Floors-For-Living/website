@@ -321,7 +321,7 @@ form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 20px; min-width:
 .field { display: grid; gap: 8px; min-width: 0; }
 .field--full { grid-column: 1 / -1; }
 label, legend { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--text); }
-input[type="text"], input[type="email"], input[type="tel"], textarea {
+input[type="text"], input[type="email"], input[type="tel"], textarea, select {
   width: 100%; font: 400 17px/1.4 var(--f-body); color: var(--text);
   background: var(--paper); border: 1px solid var(--line); border-radius: 0; padding: 15px 16px;
   transition: border-color .2s, background .2s;
@@ -693,13 +693,10 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
         </div>
       </div>
 
-      <!--
-        FORM: to make this send for real, sign up to a form service (e.g. Formspree), then put the
-        endpoint URL in data-endpoint below. Leave it empty and the form just shows the thank-you message.
-      -->
+      <!-- FORM: posts to the Supabase `enquiry` edge function (data-endpoint). Leave empty to just show the thank-you message. -->
       <form id="enquiry" data-endpoint="https://gprluocthtaaggxfmjta.supabase.co/functions/v1/enquiry" novalidate>
         <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
-        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-name">First name</label><input id="f-name" name="first_name" type="text" autocomplete="given-name" required></div>
         <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required></div>
         <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
         <div class="field"><label for="f-postcode">Postcode</label><input id="f-postcode" name="postcode" type="text" autocomplete="postal-code"></div>
@@ -716,6 +713,17 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
           </div>
         </fieldset>
         <div class="field field--full"><label for="f-msg">Tell us about the room</label><textarea id="f-msg" name="message" placeholder="e.g. Hall and stairs. Carpet’s worn through and the dog brings half the field in."></textarea></div>
+        <div class="field field--full"><label for="f-source">How did you hear about us? <span style="opacity:.6">(optional)</span></label>
+          <select id="f-source" name="self_reported_source">
+            <option value="">Choose one</option>
+            <option>Google search</option>
+            <option>Facebook or Instagram</option>
+            <option>Friend or family</option>
+            <option>Passed the shop</option>
+            <option>Leaflet or newspaper</option>
+            <option>Returning customer</option>
+            <option>Other</option>
+          </select></div>
         <div class="cf-turnstile field--full" data-sitekey="0x4AAAAAAFm0JXqKBrJMHnNr"></div>
         <p class="form__error" id="f-error" hidden></p>
         <div class="form__foot">
@@ -861,6 +869,18 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
     rail.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(syncDots); } }, { passive: true });
   }
 
+  // Campaign attribution: held in this variable only (no cookies, no storage), sent with the form
+  var CONSENT_VERSION = '2026-10-v1';
+  var attribution = (function () {
+    var out = {}, q = new URLSearchParams(location.search);
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(function (k) {
+      out[k] = (q.get(k) || '').slice(0, 500);
+    });
+    out.referrer = (document.referrer || '').slice(0, 500);
+    out.landing_path = location.pathname;
+    return out;
+  })();
+
   var form = document.getElementById('enquiry');
   var err = document.getElementById('f-error');
   form.addEventListener('submit', function (e) {
@@ -880,12 +900,17 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
     var endpoint = form.getAttribute('data-endpoint');
     if (!endpoint) { done(); return; }
     var btn = form.querySelector('button'); btn.disabled = true; btn.textContent = 'Sending…';
-    fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
-      .then(function (r) { if (!r.ok) throw new Error(); done(); })
+    var data = new FormData(form);
+    Object.keys(attribution).forEach(function (k) { data.append(k, attribution[k]); });
+    data.append('consent_version', CONSENT_VERSION);
+    fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error(); done(); })
       .catch(function () {
+        // Typed values are left in place so nothing needs retyping
         if (window.turnstile) window.turnstile.reset();
         btn.disabled = false; btn.textContent = 'Send enquiry';
-        err.textContent = 'That didn’t send. Please try again, or give us a call.';
+        err.textContent = 'Sorry, that didn’t send. Please try again, or call us on 01833 695875 and we’ll sort it out.';
         err.hidden = false;
       });
   });
