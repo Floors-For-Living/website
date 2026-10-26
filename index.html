@@ -728,7 +728,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
         <p class="form__error" id="f-error" hidden></p>
         <div class="form__foot">
           <button class="btn btn--ink" type="submit">Send enquiry</button>
-          <small>We'll only use your details to reply to this enquiry.</small>
+          <small>We'll only use your details to reply to this enquiry. Read our <a href="privacy.html">privacy notice</a>.</small>
         </div>
       </form>
     </div>
@@ -756,6 +756,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
         <a href="#british">Buy British</a>
         <a href="#visit">Visit</a>
         <a href="#contact">Contact</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
     </div>
     <p class="footer-seo">Carpet, LVT, vinyl, real wood and bespoke flooring in Barnard Castle. Supplied and fitted across Teesdale, including Startforth, Cotherstone, Middleton-in-Teesdale, Staindrop and Gainford.</p>
@@ -870,7 +871,7 @@ fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
   }
 
   // Campaign attribution: held in this variable only (no cookies, no storage), sent with the form
-  var CONSENT_VERSION = '2026-10-v1';
+  var CONSENT_VERSION = 'privacy-2026-10-26';
   var attribution = (function () {
     var out = {}, q = new URLSearchParams(location.search);
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(function (k) {

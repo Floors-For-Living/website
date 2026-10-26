@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy notice | Floors for Living</title>
+<meta name="description" content="How Floors for Living, Barnard Castle, looks after the details you give us through our website enquiry form.">
+<link rel="canonical" href="https://floorsforliving.co.uk/privacy.html">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0e0d0b">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230e0d0b'/%3E%3Cg stroke='%23d6bb6e' stroke-width='3' stroke-linecap='round' fill='none'%3E%3Cpath d='M14 10v44M23 10v44M32 10v44M41 10v44M50 10v44'/%3E%3Cpath d='M14 26h9M23 42h9M32 16h9M41 32h9'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap">
+<link rel="preload" href="auttera.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Same tokens and font setup as index.html. Auttera lives in a root-level file so paths work on GitHub Pages. */
+@font-face {
+  font-family: "Auttera";
+  src: url("auttera.woff2") format("woff2");
+  font-display: swap;
+}
+:root {
+  --ink: #0e0d0b;          /* logo black */
+  --ink-2: #1a1814;
+  --stone: #eceae5;        /* pale band */
+  --paper: #f8f7f4;
+  --text: #1c1a17;
+  --muted: #6e685f;
+  --line: #d6d2ca;
+  --gold: #b8924a;         /* mid gold from the mark */
+  --gold-dark: #8f6a2c;
+  --gold-light: #ecdc94;
+  --on-dark: #f4f1ea;
+  --on-dark-muted: #a9a297;
+  --gold-grad: linear-gradient(90deg, #9a6a2e 0%, #d6bb6e 35%, #f2e396 50%, #d6bb6e 65%, #9a6a2e 100%);
+
+  --f-display: "Auttera", "Segoe Script", "Brush Script MT", cursive;
+  --f-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+
+  --wrap: 1240px;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--text);
+  font-family: var(--f-body); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--ink); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(14,13,11,.94); backdrop-filter: blur(8px); color: var(--on-dark); border-bottom: 1px solid rgba(184,146,74,.25); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--on-dark); }
+.brand svg { width: 34px; height: 34px; flex: none; }
+.brand span { font-family: var(--f-display); font-size: 25px; letter-spacing: .02em; white-space: nowrap; }
+.back { font-size: 13px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--on-dark-muted); }
+.back:hover { color: var(--gold-light); }
+@media (max-width: 420px) { .brand span { font-size: 20px; } .back { font-size: 12px; letter-spacing: .1em; } }
+
+.notice { max-width: 68ch; margin: 0 auto; padding: clamp(40px, 7vw, 88px) var(--gutter-r) clamp(56px, 8vw, 110px) var(--gutter-l); }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dark); margin: 0 0 18px; }
+h1, h2 { font-family: var(--f-display); font-weight: 400; letter-spacing: .005em; text-wrap: balance; }
+h1 { font-size: clamp(44px, 8vw, 72px); line-height: 1.02; margin: 0 0 16px; }
+h2 { font-size: clamp(30px, 4.6vw, 40px); line-height: 1.1; margin: 56px 0 14px; color: var(--gold-dark); }
+.updated { color: var(--muted); font-size: 15px; margin: 0 0 28px; }
+.lede { font-size: 20px; margin: 0 0 8px; }
+p, ul { margin: 0 0 16px; }
+ul { padding-left: 22px; }
+li { margin-bottom: 8px; padding-left: 4px; }
+li::marker { color: var(--gold); }
+a { text-decoration-color: var(--gold); text-underline-offset: 3px; }
+a:hover { color: var(--gold-dark); }
+.card { background: var(--stone); border-left: 3px solid var(--gold); padding: 20px 24px; margin: 0 0 16px; }
+.card p { margin: 0 0 6px; }
+.card p:last-child { margin: 0; }
+/* Placeholders to fill before publishing: impossible to miss */
+.todo { background: #ffe14d; color: #1c1a17; font-weight: 600; padding: 1px 6px; border: 2px dashed #a4452c; }
+
+.gold-rule { height: 2px; background: var(--gold-grad); }
+.site-footer { background: var(--ink); color: var(--on-dark-muted); padding-block: 48px 40px; font-size: 14px; }
+.site-footer .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid rgba(244,241,234,.12); }
+.site-footer .brand span { font-size: 30px; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 14px 30px; align-items: center; }
+.site-footer nav a { text-decoration: none; letter-spacing: .14em; text-transform: uppercase; font-size: 12.5px; }
+.site-footer nav a:hover { color: var(--gold-light); }
+.site-footer .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: 13px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ffl-gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9a6a2e"/><stop offset=".35" stop-color="#d6bb6e"/>
+      <stop offset=".5" stop-color="#f2e396"/><stop offset=".65" stop-color="#d6bb6e"/><stop offset="1" stop-color="#9a6a2e"/>
+    </linearGradient>
+    <linearGradient id="ffl-gold-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e396"/><stop offset=".5" stop-color="#d6bb6e"/><stop offset="1" stop-color="#9a6a2e"/></linearGradient>
+    <symbol id="ffl-mark" viewBox="620 395 690 680">
+      <g fill="none" stroke="url(#ffl-gold)" stroke-width="18" stroke-linecap="round">
+        <path d="M648 415V1048M771 415V1048M900 415V1048M1029 415V1048M1158 415V1048M1283 415V1048"/>
+        <path d="M648 648H771M771 866H900M900 487H1029M1158 731H1283"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Floors for Living, home">
+      <svg aria-hidden="true"><use href="#ffl-mark"/></svg>
+      <span>FLOORS FOR LIVING</span>
+    </a>
+    <a class="back" href="./">Back to home</a>
+  </div>
+</header>
+
+<!-- Notice version: privacy-2026-10-26. Keep in step with CONSENT_VERSION in index.html. -->
+<main class="notice" id="top" data-notice-version="privacy-2026-10-26">
+  <p class="eyebrow">Privacy notice</p>
+  <h1>How we look after your details</h1>
+  <p class="updated">Last updated 26 October 2026</p>
+  <p class="lede">We only want your details so we can talk to you about your floor. This page explains what we collect, why, and what your rights are.</p>
+
+  <h2>Who we are</h2>
+  <div class="card">
+    <p><strong>Floors for Living</strong><br>41 Galgate, Barnard Castle DL12 8EJ</p>
+    <p>Phone: <a href="tel:01833695875">01833 695875</a><br>Email: <a href="mailto:sales@floorsforliving.co.uk">sales@floorsforliving.co.uk</a></p>
+    <p>Legal business name: <!-- TODO: confirm legal business name --><mark class="todo">[LEGAL BUSINESS NAME TO CONFIRM]</mark><br>
+    ICO registration number: <!-- TODO: confirm ICO registration number --><mark class="todo">[ICO NUMBER TO CONFIRM]</mark></p>
+  </div>
+  <p>We are the data controller. That means we decide how your details are used and we are responsible for looking after them.</p>
+
+  <h2>What we collect</h2>
+  <p>When you send an enquiry through the form on our website, we collect:</p>
+  <ul>
+    <li>your first name and phone number</li>
+    <li>your email address, if you choose to give it</li>
+    <li>your message</li>
+    <li>your postcode and the types of floor you are interested in, if you tell us</li>
+    <li>how you heard about us, if you choose to tell us</li>
+  </ul>
+  <p>The form also sends us some details automatically:</p>
+  <ul>
+    <li>the advert or campaign that brought you here (campaign tags in the link you clicked)</li>
+    <li>advertising click IDs from Facebook or Google</li>
+    <li>the website you came from</li>
+    <li>the page you landed on</li>
+  </ul>
+  <p>We also use your IP address to check that you are a real person and to limit spam. We do not store the address itself. We store only a one-way scrambled (hashed) version of it.</p>
+
+  <h2>Why we use your details</h2>
+  <ul>
+    <li><strong>To reply to your enquiry</strong> and take steps you ask for before any contract. Our legal basis is legitimate interests and pre-contract steps.</li>
+    <li><strong>To understand which of our advertising and channels bring us enquiries.</strong> Our legal basis is legitimate interests.</li>
+    <li><strong>To keep the site secure and free of spam.</strong> Our legal basis is legitimate interests.</li>
+  </ul>
+  <p>We do not sell your data. We do not send you marketing from this form.</p>
+
+  <h2>How long we keep it</h2>
+  <p>Enquiries are deleted automatically after 12 months.</p>
+  <p>If you go on to buy from us, we keep the records we need for your order, guarantees and our accounts separately. We keep those for as long as the law and the job require.</p>
+
+  <h2>Who handles your data for us</h2>
+  <p>These companies process data on our behalf:</p>
+  <ul>
+    <li><strong>Supabase</strong> runs our database, which is hosted in Ireland.</li>
+    <li><strong>Resend</strong> sends our enquiry email notifications.</li>
+    <li><strong>Cloudflare</strong> runs the Turnstile spam check on the form.</li>
+    <li><strong>GitHub</strong> hosts the website.</li>
+    <li><strong>GoDaddy</strong> looks after our domain and email.</li>
+  </ul>
+  <p>Some of these are US companies, so your data may be transferred outside the UK. When that happens, it is protected by the safeguards the UK GDPR requires.</p>
+  <p>Our website also loads Google Maps and Google Fonts. That means Google can receive your IP address when those pages load.</p>
+
+  <h2>Cookies</h2>
+  <!-- TODO: re-check the Google Maps embed and Cloudflare Turnstile for cookies/storage on the live site (they could not be loaded from the build sandbox), then tighten or confirm this wording. -->
+  <p>We do not set any cookies ourselves. The enquiry form does not use cookies or browser storage. The campaign details described above are held in the page only while you fill in the form.</p>
+  <p>The Google map and the Cloudflare spam check are run by those companies. They may use their own cookies or similar technologies when they load. We do not control those.</p>
+
+  <h2>Your rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li>ask for a copy of the details we hold about you</li>
+    <li>ask us to correct anything that is wrong</li>
+    <li>ask us to delete your details</li>
+    <li>ask us to restrict how we use them</li>
+    <li>object to how we use them</li>
+  </ul>
+  <p>To use any of these rights, email <a href="mailto:sales@floorsforliving.co.uk">sales@floorsforliving.co.uk</a> or phone <a href="tel:01833695875">01833 695875</a>. We aim to reply within one month.</p>
+  <p>If you are not happy with how we have handled your details, you can complain to the Information Commissioner's Office (ICO) at <a href="https://ico.org.uk" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
+</main>
+
+<div class="gold-rule"></div>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="./" aria-label="Floors for Living, home">
+        <svg aria-hidden="true" style="width:40px;height:40px"><use href="#ffl-mark"/></svg>
+        <span>FLOORS FOR LIVING</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="./">Home</a>
+        <a href="privacy.html" aria-current="page">Privacy</a>
+      </nav>
+    </div>
+    <div class="bottom">
+      <span>&copy; 2026 Floors for Living, 41 Galgate, Barnard Castle DL12 8EJ</span>
+      <span><a href="tel:01833695875" style="text-decoration:none">01833 695875</a> &middot; <a href="mailto:sales@floorsforliving.co.uk" style="text-decoration:none">sales@floorsforliving.co.uk</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
