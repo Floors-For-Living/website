@@ -118,32 +118,31 @@ a:hover { color: var(--gold-dark); }
   </div>
 </header>
 
-<!-- Notice version: privacy-2026-10-26. Keep in step with CONSENT_VERSION in index.html. -->
-<main class="notice" id="top" data-notice-version="privacy-2026-10-26">
+<!-- Notice version: privacy-2026-10-27. Keep in step with CONSENT_VERSION in index.html. -->
+<main class="notice" id="top" data-notice-version="privacy-2026-10-27">
   <p class="eyebrow">Privacy notice</p>
   <h1>How we look after your details</h1>
-  <p class="updated">Last updated 26 October 2026</p>
+  <p class="updated">Last updated 27 October 2026</p>
   <p class="lede">We only want your details so we can talk to you about your floor. This page explains what we collect, why, and what your rights are.</p>
 
   <h2>Who we are</h2>
   <div class="card">
     <p><strong>Floors for Living</strong><br>41 Galgate, Barnard Castle DL12 8EJ</p>
     <p>Phone: <a href="tel:01833695875">01833 695875</a><br>Email: <a href="mailto:sales@floorsforliving.co.uk">sales@floorsforliving.co.uk</a></p>
-    <p>Legal business name: <!-- TODO: confirm legal business name --><mark class="todo">[LEGAL BUSINESS NAME TO CONFIRM]</mark><br>
-    ICO registration number: <!-- TODO: confirm ICO registration number --><mark class="todo">[ICO NUMBER TO CONFIRM]</mark></p>
+    <p>Legal business name: <!-- TODO: confirm legal business name --><mark class="todo">[LEGAL BUSINESS NAME]</mark><br>
+    ICO registration number: <!-- TODO: confirm ICO registration number --><mark class="todo">[ICO NUMBER]</mark></p>
   </div>
   <p>We are the data controller. That means we decide how your details are used and we are responsible for looking after them.</p>
 
   <h2>What we collect</h2>
-  <p>When you send an enquiry through the form on our website, we collect:</p>
+  <p>When you send an enquiry through the form on our website, we ask for your first name, phone number and email address. We need all three to send the form.</p>
+  <p>You can also tell us, if you want to:</p>
   <ul>
-    <li>your first name and phone number</li>
-    <li>your email address, if you choose to give it</li>
-    <li>your message</li>
-    <li>your postcode and the types of floor you are interested in, if you tell us</li>
-    <li>how you heard about us, if you choose to tell us</li>
+    <li>a message about your room</li>
+    <li>the types of floor you are interested in, and when you are thinking of doing it</li>
+    <li>your postcode</li>
   </ul>
-  <p>The form also sends us some details automatically:</p>
+  <p>The form also sends us some details automatically. We store them with your enquiry so we can measure which of our adverts and campaigns bring us enquiries:</p>
   <ul>
     <li>the advert or campaign that brought you here (campaign tags in the link you clicked)</li>
     <li>advertising click IDs from Facebook or Google</li>
@@ -154,9 +153,9 @@ a:hover { color: var(--gold-dark); }
 
   <h2>Why we use your details</h2>
   <ul>
-    <li><strong>To reply to your enquiry</strong> and take steps you ask for before any contract. Our legal basis is legitimate interests and pre-contract steps.</li>
-    <li><strong>To understand which of our advertising and channels bring us enquiries.</strong> Our legal basis is legitimate interests.</li>
-    <li><strong>To keep the site secure and free of spam.</strong> Our legal basis is legitimate interests.</li>
+    <li><strong>To reply to your enquiry.</strong> Our lawful basis is legitimate interests. You have contacted us, and replying is what you would expect.</li>
+    <li><strong>To understand which of our adverts and channels bring us enquiries.</strong> This uses the campaign and referrer details above. Our lawful basis is legitimate interests.</li>
+    <li><strong>To keep the site secure and free of spam.</strong> Our lawful basis is legitimate interests.</li>
   </ul>
   <p>We do not sell your data. We do not send you marketing from this form.</p>
 
@@ -164,22 +163,27 @@ a:hover { color: var(--gold-dark); }
   <p>Enquiries are deleted automatically after 12 months.</p>
   <p>If you go on to buy from us, we keep the records we need for your order, guarantees and our accounts separately. We keep those for as long as the law and the job require.</p>
 
-  <h2>Who handles your data for us</h2>
+  <h2>Where your data is kept and who handles it</h2>
+  <p>Your enquiry is stored in a database run by Supabase. The database is hosted in Ireland, inside the European Economic Area (EEA).</p>
   <p>These companies process data on our behalf:</p>
   <ul>
-    <li><strong>Supabase</strong> runs our database, which is hosted in Ireland.</li>
-    <li><strong>Resend</strong> sends our enquiry email notifications.</li>
+    <li><strong>Supabase</strong> stores your enquiry.</li>
+    <li><strong>Resend</strong> sends us an email about each enquiry.</li>
     <li><strong>Cloudflare</strong> runs the Turnstile spam check on the form.</li>
     <li><strong>GitHub</strong> hosts the website.</li>
     <li><strong>GoDaddy</strong> looks after our domain and email.</li>
   </ul>
   <p>Some of these are US companies, so your data may be transferred outside the UK. When that happens, it is protected by the safeguards the UK GDPR requires.</p>
-  <p>Our website also loads Google Maps and Google Fonts. That means Google can receive your IP address when those pages load.</p>
+  <p>Our pages load Google Fonts, so Google can receive your IP address when a page opens. The map in the Visit section only loads if you choose to load it. If you do, Google receives your IP address and may set cookies.</p>
 
   <h2>Cookies</h2>
-  <!-- TODO: re-check the Google Maps embed and Cloudflare Turnstile for cookies/storage on the live site (they could not be loaded from the build sandbox), then tighten or confirm this wording. -->
-  <p>We do not set any cookies ourselves. The enquiry form does not use cookies or browser storage. The campaign details described above are held in the page only while you fill in the form.</p>
-  <p>The Google map and the Cloudflare spam check are run by those companies. They may use their own cookies or similar technologies when they load. We do not control those.</p>
+  <p>We do not use analytics or advertising cookies. The enquiry form does not use cookies or browser storage. The campaign details described above are held in the page only while you fill in the form.</p>
+  <p>Two things on our site can set cookies from the companies that run them:</p>
+  <ul>
+    <li><strong>Cloudflare Turnstile</strong>, the spam protection on the enquiry form.</li>
+    <li><strong>The Google Map</strong>, but only if you choose to load it.</li>
+  </ul>
+  <p>We do not control those cookies. You can block or delete cookies in your browser settings.</p>
 
   <h2>Your rights</h2>
   <p>You have the right to:</p>
@@ -190,7 +194,7 @@ a:hover { color: var(--gold-dark); }
     <li>ask us to restrict how we use them</li>
     <li>object to how we use them</li>
   </ul>
-  <p>To use any of these rights, email <a href="mailto:sales@floorsforliving.co.uk">sales@floorsforliving.co.uk</a> or phone <a href="tel:01833695875">01833 695875</a>. We aim to reply within one month.</p>
+  <p>To use any of these rights, email <a href="mailto:sales@floorsforliving.co.uk">sales@floorsforliving.co.uk</a>. We aim to reply within one month.</p>
   <p>If you are not happy with how we have handled your details, you can complain to the Information Commissioner's Office (ICO) at <a href="https://ico.org.uk" rel="noopener">ico.org.uk</a> or on 0303 123 1113.</p>
 </main>
 
