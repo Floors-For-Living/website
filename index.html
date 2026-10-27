@@ -420,6 +420,9 @@ legend { padding: 0; }
   .tracker__tick path { stroke-dashoffset: 0; animation: none !important; }
   .tracker__stop.is-next .tracker__dot::after { animation: none !important; }
 }
+/* Keep the steps (and their circles) above the progress line in every state; the entrance animation gives each step its own stacking context */
+.tracker__stop { z-index: 1; }
+.tracker__track::before, .tracker__track::after { z-index: 0; }
 .form__error { grid-column: 1 / -1; color: #a4452c; font-size: 15px; margin: 0; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
 @media (max-width: 520px) {
