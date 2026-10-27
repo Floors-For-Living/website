@@ -93,7 +93,8 @@ Deno.serve(async (req) => {
 
   if (!firstName) return reply(req, 400, { error: "Please add your name." });
   if (!/^[0-9+()\-\s]{7,30}$/.test(phone)) return reply(req, 400, { error: "Please add a valid phone number." });
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(req, 400, { error: "That email address doesn't look right." });
+  if (!email) return reply(req, 400, { error: "Please add your email address." });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(req, 400, { error: "That email address doesn't look right." });
   if (postcode && !/^[A-Z0-9 ]{2,10}$/.test(postcode)) return reply(req, 400, { error: "That postcode doesn't look right." });
   if (!consentVersion) return reply(req, 400, { error: "Missing consent version." });
   if (selfReported && !SOURCES.includes(selfReported)) return reply(req, 400, { error: "Invalid source." });
