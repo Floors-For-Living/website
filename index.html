@@ -291,16 +291,18 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .map { position: relative; display: flex; flex-direction: column; background: var(--ink); min-width: 0; }
 .map__canvas { position: relative; flex: 1; min-height: 440px; overflow: hidden; background: #141210; }
 .map__canvas iframe {
-  position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none;
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; z-index: 1;
   /* turns Google's standard map dark with a warm gold cast */
   filter: grayscale(1) invert(1) brightness(.78) contrast(1.15) sepia(.55) hue-rotate(-12deg) saturate(1.4);
 }
 .map__fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
-.map__canvas::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, rgba(14,13,11,0) 35%, rgba(14,13,11,.55) 100%); }
+.map__canvas::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, rgba(14,13,11,0) 35%, rgba(14,13,11,.55) 100%); }
 .map__pin { position: absolute; left: 50%; top: 50%; width: 46px; transform: translate(-50%, -88%); z-index: 2; filter: drop-shadow(0 6px 10px rgba(0,0,0,.5)); }
 .map__pin::before { content: ""; position: absolute; left: 50%; top: 88%; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; border: 1px solid var(--gold); opacity: 0; animation: ping 2.6s ease-out infinite; }
 @keyframes ping { 0% { transform: scale(.3); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .map__pin::before { animation: none; } }
+.map__load { position: absolute; left: 0; right: 0; bottom: 22px; z-index: 3; display: grid; justify-items: center; gap: 10px; padding: 0 16px; text-align: center; }
+.map__load small { max-width: 34ch; font-size: 13px; line-height: 1.45; color: var(--on-dark-muted); text-shadow: 0 1px 8px rgba(0,0,0,.8); }
 .map__card { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; padding: 22px 24px; border-top: 1px solid rgba(184,146,74,.35); color: var(--on-dark); }
 .map__mark { width: 34px; height: 34px; flex: none; }
 .map__addr { display: grid; gap: 2px; flex: 1 1 200px; min-width: 0; }
@@ -530,7 +532,7 @@ legend { padding: 0; }
       <h1 class="display">Floors you’ll love coming <em>home</em> to</h1>
       <p>Transform your space with Floors for Living. An independent shop based in Barnard Castle, we offer bespoke carpet and flooring that combines style, quality and exceptional service. Experience the best in flooring with our dedicated team of experts.</p>
       <div class="hero__ctas">
-        <a class="btn btn--gold" href="#contact">Book a home measure</a>
+        <a class="btn btn--gold" href="#contact">Request a call back</a>
         <a class="btn btn--ghost" href="#visit">Find the showroom</a>
       </div>
       <div class="hero__meta">
@@ -736,7 +738,6 @@ legend { padding: 0; }
 
       <div class="map">
         <div class="map__canvas">
-          <iframe src="https://maps.google.com/maps?q=41%20Galgate%2C%20Barnard%20Castle%20DL12%208EJ&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Floors for Living, 41 Galgate, Barnard Castle" tabindex="-1"></iframe>
           <svg class="map__fallback" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <rect width="800" height="520" fill="#141210"/>
             <path d="M-20 450 C 120 420, 210 490, 340 440 S 560 350, 820 400" stroke="#1f2a2c" stroke-width="30" fill="none"/>
@@ -751,6 +752,10 @@ legend { padding: 0; }
             <path d="M360 -10 C 380 120, 410 200, 400 260 S 430 420, 450 530" stroke="#8f6a2c" stroke-width="12" stroke-linecap="round" fill="none" opacity=".75"/>
             <text x="452" y="120" fill="#8f6a2c" font-family="Hanken Grotesk, Arial, sans-serif" font-size="13" letter-spacing="3" transform="rotate(78 452 120)">GALGATE</text>
           </svg>
+          <div class="map__load">
+            <button class="btn btn--gold" type="button" id="map-load" data-src="https://maps.google.com/maps?q=41%20Galgate%2C%20Barnard%20Castle%20DL12%208EJ&amp;z=16&amp;output=embed">Load map</button>
+            <small>Loads a Google map. Google may set cookies once it does.</small>
+          </div>
           <div class="map__pin" aria-hidden="true">
             <svg viewBox="-30 -46 60 76"><path d="M0 -42 C 18 -42, 28 -28, 28 -14 C 28 6, 0 26, 0 26 C 0 26, -28 6, -28 -14 C -28 -28, -18 -42, 0 -42 Z" fill="url(#ffl-gold-v)"/><circle cy="-15" r="8" fill="#0e0d0b"/></svg>
           </div>
@@ -841,7 +846,7 @@ legend { padding: 0; }
         <p class="form__error" id="f-error" role="alert" hidden></p>
         <div class="form__foot">
           <button class="btn btn--ink" type="submit">Request a call back</button>
-          <small>We'll only use your details to reply to this enquiry.</small>
+          <small>We'll only use your details to reply to this enquiry. Read our <a href="privacy.html">privacy notice</a>.</small>
         </div>
       </form>
 
@@ -900,7 +905,7 @@ legend { padding: 0; }
 
 <div class="callbar" id="callbar">
   <a href="tel:01833695875">Call</a>
-  <a href="#contact">Enquire</a>
+  <a href="#contact">Send enquiry</a>
 </div>
 
 <div class="gold-rule"></div>
@@ -917,6 +922,7 @@ legend { padding: 0; }
         <a href="#british">Buy British</a>
         <a href="#visit">Visit</a>
         <a href="#contact">Contact</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
     </div>
     <p class="footer-seo">Carpet, LVT, vinyl, real wood and bespoke flooring in Barnard Castle. Supplied and fitted across Teesdale, including Startforth, Cotherstone, Middleton-in-Teesdale, Staindrop and Gainford.</p>
@@ -957,6 +963,21 @@ legend { padding: 0; }
       showPick();
       // Scrolling is left to the #enquiry link: smooth by default, instant under prefers-reduced-motion (see html rule)
     });
+  });
+
+  // The Google map is only created after a click, so Google sets no cookies until then
+  var mapBtn = document.getElementById('map-load');
+  if (mapBtn) mapBtn.addEventListener('click', function () {
+    var canvas = mapBtn.closest('.map__canvas');
+    var frame = document.createElement('iframe');
+    frame.src = mapBtn.getAttribute('data-src');
+    frame.title = 'Map of Floors for Living, 41 Galgate, Barnard Castle';
+    frame.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    frame.tabIndex = -1;
+    canvas.insertBefore(frame, canvas.firstChild);
+    mapBtn.closest('.map__load').remove();
+    canvas.tabIndex = -1;
+    canvas.focus({ preventScroll: true });
   });
 
   var reel = document.querySelector('.reel');
@@ -1051,7 +1072,7 @@ legend { padding: 0; }
   }
 
   // Campaign attribution: held in this variable only (no cookies, no storage), sent with the form
-  var CONSENT_VERSION = '2026-10-v1';
+  var CONSENT_VERSION = 'privacy-2026-10-27';
   var attribution = (function () {
     var out = {}, q = new URLSearchParams(location.search);
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(function (k) {

@@ -39,3 +39,12 @@ Anyone with the Supabase access token can read enquiries. Treat the Supabase log
 supabase db push
 supabase functions deploy enquiry --no-verify-jwt
 ```
+
+## Privacy notice
+
+- Published at `privacy.html` (https://floorsforliving.co.uk/privacy.html), linked from the site footer and the enquiry form.
+- Current version: `privacy-2026-10-27`. The same string is `CONSENT_VERSION` in `index.html` and is stored with every enquiry as `consent_version`.
+- **The notice and `CONSENT_VERSION` must be updated together whenever data collection or processors change.** Change the "Last updated" date, the version comment in `privacy.html` and `CONSENT_VERSION`, and add the date to `sitemap.xml`.
+- Processors named in the notice: Supabase (database, Ireland), Resend (enquiry emails), Cloudflare (Turnstile spam check), GitHub (hosting), GoDaddy (domain and email). Google Fonts loads with each page. The Google Map is click-to-load (a "Load map" button), so Google sets no cookies until a visitor chooses it.
+- Still to fill in `privacy.html`: the legal business name (`[LEGAL BUSINESS NAME]`) and ICO registration number (`[ICO NUMBER]`), highlighted in yellow with TODO comments.
+- Email is required on the form; the message, interests, timing and postcode are optional. The notice says so.
