@@ -160,7 +160,7 @@ Deno.serve(async (req) => {
     }
     if (!ref) throw new Error("could not allocate ref");
   } catch (e) {
-    console.error("database error", (e as Error).message);
+    console.error("database error", (e as { code?: string }).code ?? "unknown");
     return reply(req, 500, { error: `Something went wrong. Please call us on ${PHONE}.` });
   }
 
@@ -170,26 +170,73 @@ Deno.serve(async (req) => {
   if (resendKey && to) {
     const source = attribution.utm_source || selfReported || hostOf(attribution.referrer ?? "") || "direct";
     const campaign = attribution.utm_campaign || "none";
-    const row = (label: string, value: string | null) =>
-      `<tr><td><b>${label}</b></td><td>${esc(value || "-").replace(/\n/g, "<br>")}</td></tr>`;
-    const html = `<h2>New website enquiry ${esc(ref)}</h2><table cellpadding="6">
-      ${row("Ref", ref)}${row("Name", firstName)}${row("Phone", phone)}${row("Email", email)}
-      ${row("Message", message)}
-      ${row("Source", source)}${row("Campaign", campaign)}
-      ${row("How they heard", selfReported)}
-      ${row("utm_medium", attribution.utm_medium)}${row("utm_content", attribution.utm_content)}${row("utm_term", attribution.utm_term)}
-      ${row("fbclid", attribution.fbclid)}${row("gclid", attribution.gclid)}
-      ${row("Referrer", attribution.referrer)}${row("Landing page", attribution.landing_path)}
-      ${row("Consent version", consentVersion)}</table>`;
+    const telHref = phone.replace(/[^0-9+]/g, "");
+    const messageHtml = esc(message || "No message").replace(/\n/g, "<br>");
+    const extras: [string, string | null][] = [
+      ["Medium", attribution.utm_medium],
+      ["Content", attribution.utm_content],
+      ["Term", attribution.utm_term],
+      ["Referrer", attribution.referrer],
+      ["Landing page", attribution.landing_path],
+      ["Facebook click ID", attribution.fbclid],
+      ["Google click ID", attribution.gclid],
+    ];
+    const extraRows = extras
+      .filter(([, v]) => v)
+      .map(([k, v]) => `<tr><td style="padding:3px 14px 3px 0;color:#8a8479;font-size:13px;white-space:nowrap;vertical-align:top">${k}</td><td style="padding:3px 0;color:#3a362f;font-size:13px;word-break:break-all">${esc(v as string)}</td></tr>`)
+      .join("");
+    const html = `<!doctype html><html><body style="margin:0;padding:0;background:#eceae5">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0">${esc(firstName)}, ${esc(phone)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eceae5"><tr><td align="center" style="padding:24px 12px">
+ <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;font-family:Helvetica,Arial,sans-serif">
+  <tr><td style="background:#0e0d0b;padding:22px 28px;border-bottom:3px solid #b8924a">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td style="color:#ecdc94;font-size:13px;letter-spacing:3px;font-weight:bold">FLOORS FOR LIVING</td>
+      <td align="right" style="color:#a9a297;font-size:12px;letter-spacing:2px">${esc(ref)}</td>
+    </tr></table>
+  </td></tr>
+  <tr><td style="background:#ffffff;padding:28px">
+    <p style="margin:0 0 4px;color:#8f6a2c;font-size:12px;letter-spacing:2px;font-weight:bold">NEW ENQUIRY</p>
+    <h1 style="margin:0 0 20px;font-size:28px;line-height:1.2;color:#0e0d0b">${esc(firstName)}</h1>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px"><tr><td style="background:#b8924a;border-radius:2px">
+      <a href="tel:${telHref}" style="display:inline-block;padding:14px 22px;color:#0e0d0b;font-size:17px;font-weight:bold;text-decoration:none">Call ${esc(phone)}</a>
+    </td></tr></table>
+    <p style="margin:0 0 20px;font-size:15px;color:#3a362f">Email: <a href="mailto:${esc(email)}" style="color:#8f6a2c">${esc(email)}</a></p>
+    <div style="background:#f8f7f4;border-left:3px solid #b8924a;padding:14px 16px;font-size:15px;line-height:1.6;color:#1c1a17">${messageHtml}</div>
+    <p style="margin:18px 0 0;font-size:13px;color:#8a8479">Hit reply to answer ${esc(firstName)} by email.</p>
+  </td></tr>
+  <tr><td style="background:#ffffff;padding:0 28px 24px">
+    <div style="border-top:1px solid #e3dfd6;padding-top:16px">
+      <p style="margin:0 0 8px;color:#8f6a2c;font-size:12px;letter-spacing:2px;font-weight:bold">WHERE IT CAME FROM</p>
+      <p style="margin:0 0 8px;font-size:15px;color:#1c1a17"><b>${esc(source)}</b> &middot; campaign: ${esc(campaign)}</p>
+      <table role="presentation" cellpadding="0" cellspacing="0">${extraRows}</table>
+    </div>
+  </td></tr>
+  <tr><td style="padding:14px 4px;color:#8a8479;font-size:12px">Ref ${esc(ref)} &middot; Notice version ${esc(consentVersion)}</td></tr>
+ </table>
+</td></tr></table></body></html>`;
+    const text = [
+      `New website enquiry ${ref}`,
+      ``,
+      `Name: ${firstName}`,
+      `Phone: ${phone}`,
+      `Email: ${email}`,
+      ``,
+      message || "No message",
+      ``,
+      `Source: ${source}`,
+      `Campaign: ${campaign}`,
+    ].join("\n");
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: FROM,
-        to: [to],
+        to: to.split(",").map((s) => s.trim()).filter(Boolean),
         reply_to: email || undefined,
-        subject: `New enquiry ${ref} from ${firstName} (source: ${source}, campaign: ${campaign})`,
+        subject: `New enquiry ${ref} from ${firstName}`,
         html,
+        text,
       }),
     }).catch(() => null);
     if (!res?.ok) console.error("resend failed", res?.status);
