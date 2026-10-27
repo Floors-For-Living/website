@@ -153,7 +153,6 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 }
 @media (max-width: 760px) { .nav .btn { display: none; } }
 @media (max-width: 420px) { .brand span { font-size: 20px; } .nav .btn { padding: 11px 12px; letter-spacing: .1em; } }
-@media (max-width: 400px) { .callbar a { font-size: 12.5px; letter-spacing: .1em; } }
 
 /* Hero */
 .hero { position: relative; background: var(--ink); color: var(--on-dark); overflow: hidden; }
@@ -441,8 +440,7 @@ legend { padding: 0; }
 .callbar { display: none; }
 @media (max-width: 760px) {
   .callbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; background: var(--ink); border-top: 1px solid rgba(184,146,74,.4); padding-bottom: env(safe-area-inset-bottom, 0px); transition: transform .3s; }
-  .callbar a { flex: 1 1 0; display: grid; place-items: center; min-height: 52px; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; text-align: center; padding: 0 8px; }
-  .callbar a:first-child { flex: 0 0 30%; }
+  .callbar a { flex: 1 1 0; display: grid; place-items: center; min-height: 52px; color: var(--gold); font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; }
   .callbar a + a { border-left: 1px solid rgba(184,146,74,.3); }
   .callbar.is-hidden { transform: translateY(100%); visibility: hidden; transition: transform .3s, visibility 0s .3s; }
   .site-footer { padding-bottom: calc(40px + 52px + env(safe-area-inset-bottom, 0px)); }
@@ -907,7 +905,7 @@ legend { padding: 0; }
 
 <div class="callbar" id="callbar">
   <a href="tel:01833695875">Call</a>
-  <a href="#contact">Request a call back</a>
+  <a href="#contact">Send enquiry</a>
 </div>
 
 <div class="gold-rule"></div>
