@@ -359,9 +359,67 @@ legend { padding: 0; }
 .more__body { display: grid; gap: 22px; padding: 8px 0 24px; }
 .form__foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; }
 .form__foot small { color: var(--muted); font-size: 13.5px; max-width: 40ch; }
-.form__done { grid-column: 1 / -1; background: var(--ink); color: var(--on-dark); padding: 36px; display: grid; gap: 10px; }
-.form__done h3 { font-family: var(--f-display); font-weight: 400; font-size: 44px; line-height: 1; margin: 0; color: var(--gold-light); }
-.form__done p { margin: 0; color: var(--on-dark-muted); }
+/* Enquiry tracker: shown in place of the form once an enquiry has been sent */
+.contact.is-sent { grid-template-columns: 1fr; }
+.contact.is-sent .contact__aside { display: none; }
+.tracker { --n: 5; --rail: rgba(244,241,234,.14); grid-column: 1 / -1; min-width: 0; scroll-margin-top: 96px; background: var(--ink); color: var(--on-dark); padding: clamp(28px, 5vw, 56px); border-top: 2px solid var(--gold); }
+.tracker[hidden] { display: none; }
+.tracker__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px 40px; margin-bottom: clamp(32px, 5vw, 56px); }
+.tracker__head > div { min-width: 0; }
+.tracker .eyebrow { margin: 0 0 12px; color: var(--gold); }
+.tracker .tracker__title { font-size: clamp(40px, 6vw, 68px); line-height: 1; color: var(--gold-light); }
+.tracker__title:focus { outline: none; }
+.tracker__title:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; }
+.tracker__lead { margin: 14px 0 0; color: var(--on-dark-muted); max-width: 52ch; }
+.tracker__ref { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-muted); white-space: nowrap; }
+.tracker__ref[hidden] { display: none; }
+.tracker__ref b { color: var(--on-dark); font-weight: 600; font-variant-numeric: tabular-nums; }
+.tracker__track { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); list-style: none; margin: 0; padding: 0; }
+.tracker__track::before, .tracker__track::after { content: ""; position: absolute; top: 23px; left: calc(100% / var(--n) / 2); height: 2px; }
+.tracker__track::before { right: calc(100% / var(--n) / 2); background: var(--rail); }
+.tracker__track::after { width: 0; background: var(--gold-grad); transition: width 1.2s cubic-bezier(.6,0,.2,1); }
+.tracker.is-go .tracker__track::after { width: calc((100% - 100% / var(--n)) * .25 * .5); }
+.tracker__stop { position: relative; display: grid; justify-items: center; text-align: center; gap: 12px; padding-inline: 8px; min-width: 0; opacity: 0; transform: translateY(10px); }
+.tracker__dot { position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); border: 2px solid var(--rail); color: var(--on-dark-muted); transition: border-color .4s, background .4s; }
+.tracker__dot svg { width: 22px; height: 22px; }
+.tracker__stop h3 { margin: 4px 0 0; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark); }
+.tracker__stop p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--on-dark-muted); max-width: 22ch; }
+.tracker__tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: 4px 9px; border: 1px solid var(--rail); color: var(--on-dark-muted); }
+.tracker__stop.is-done .tracker__dot { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.tracker__stop.is-done .tracker__tag { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.tracker__tick path { stroke-dasharray: 30; stroke-dashoffset: 30; }
+.tracker.is-go .tracker__tick path { animation: trk-draw .5s .2s ease-out forwards; }
+.tracker__stop.is-next .tracker__dot { border-color: var(--gold); color: var(--gold-light); }
+.tracker__stop.is-next .tracker__dot::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid var(--gold); opacity: 0; }
+.tracker.is-go .tracker__stop.is-next .tracker__dot::after { animation: trk-ping 2.2s 1.2s ease-out infinite; }
+.tracker__stop.is-next .tracker__tag { border-color: var(--gold); color: var(--gold-light); }
+.tracker.is-go .tracker__stop { animation: trk-rise .6s ease-out forwards; }
+.tracker.is-go .tracker__stop:nth-child(2) { animation-delay: .15s; }
+.tracker.is-go .tracker__stop:nth-child(3) { animation-delay: .3s; }
+.tracker.is-go .tracker__stop:nth-child(4) { animation-delay: .45s; }
+.tracker.is-go .tracker__stop:nth-child(5) { animation-delay: .6s; }
+@keyframes trk-draw { to { stroke-dashoffset: 0; } }
+@keyframes trk-ping { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.45); opacity: 0; } }
+@keyframes trk-rise { to { opacity: 1; transform: none; } }
+.tracker__foot { margin-top: clamp(36px, 5vw, 56px); padding-top: 24px; border-top: 1px solid var(--rail); }
+.tracker__foot p { margin: 0; color: var(--on-dark-muted); font-size: 15px; }
+.tracker__foot a { color: var(--gold-light); text-decoration: none; font-weight: 600; user-select: all; white-space: nowrap; }
+@media (max-width: 760px) {
+  .tracker__track { grid-template-columns: 1fr; gap: 26px; }
+  .tracker__track::before, .tracker__track::after { top: 24px; bottom: 24px; left: 23px; right: auto; width: 2px; height: auto; }
+  .tracker__track::after { height: 0; bottom: auto; transition: height 1.2s cubic-bezier(.6,0,.2,1); }
+  .tracker.is-go .tracker__track::after { width: 2px; height: calc((100% - 48px) * .25 * .5); }
+  .tracker__stop { grid-template-columns: 48px 1fr; justify-items: start; text-align: left; column-gap: 16px; row-gap: 4px; padding-inline: 0; }
+  .tracker__stop .tracker__dot { grid-row: span 3; }
+  .tracker__stop h3 { margin: 2px 0 0; }
+  .tracker__stop p { max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tracker__stop { opacity: 1; transform: none; animation: none !important; }
+  .tracker__track::after { transition: none; }
+  .tracker__tick path { stroke-dashoffset: 0; animation: none !important; }
+  .tracker__stop.is-next .tracker__dot::after { animation: none !important; }
+}
 .form__error { grid-column: 1 / -1; color: #a4452c; font-size: 15px; margin: 0; }
 @media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
 @media (max-width: 520px) {
@@ -783,6 +841,54 @@ legend { padding: 0; }
           <small>We'll only use your details to reply to this enquiry.</small>
         </div>
       </form>
+
+      <!-- Enquiry tracker: hidden until showTracker() runs after a successful send. Static markup only; the name and ref are added with textContent. -->
+      <section class="tracker" id="tracker" aria-labelledby="trk-h" hidden>
+        <div class="tracker__head">
+          <div>
+            <p class="eyebrow">Enquiry received</p>
+            <h2 class="display tracker__title" id="trk-h" tabindex="-1"></h2>
+            <p class="tracker__lead"></p>
+          </div>
+          <span class="tracker__ref" hidden>Ref <b></b></span>
+        </div>
+        <ol class="tracker__track" role="list" aria-label="Your journey to a new floor">
+        <li class="tracker__stop is-done" aria-current="step">
+          <span class="tracker__dot"><svg class="tracker__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <span class="tracker__tag">Done</span>
+          <h3>Enquiry sent</h3>
+          <p>We’ve got your details and they’re with the team.</p>
+        </li>
+        <li class="tracker__stop is-next">
+          <span class="tracker__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 3.5h2.6l1.4 4-2 1.4a12 12 0 0 0 6.5 6.5l1.4-2 4 1.4v2.6a2 2 0 0 1-2.2 2A17.5 17.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg></span>
+          <span class="tracker__tag">Up next</span>
+          <h3>We call you back</h3>
+          <p>A quick chat about the room and what you’re after.</p>
+        </li>
+        <li class="tracker__stop">
+          <span class="tracker__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></span>
+          <span class="tracker__tag">Step 3</span>
+          <h3>Showroom visit</h3>
+          <p>See and feel the samples on Galgate.</p>
+        </li>
+        <li class="tracker__stop">
+          <span class="tracker__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="8" width="19" height="8" rx="1"/><path d="M6 8v3M9.5 8v4.5M13 8v3M16.5 8v4.5"/></svg></span>
+          <span class="tracker__tag">Step 4</span>
+          <h3>Measure up</h3>
+          <p>We measure at home, or you bring us your sizes.</p>
+        </li>
+        <li class="tracker__stop">
+          <span class="tracker__dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V9h4v11M10 20V4h4v16M16 20v-8h4v8"/><path d="M3 20h18"/></svg></span>
+          <span class="tracker__tag">Step 5</span>
+          <h3>Your new floor</h3>
+          <p>Fitted by our local fitters, or ready for you to fit.</p>
+        </li>
+        </ol>
+        <div class="tracker__foot">
+          <p>Can’t wait for the call? Ring us on <a href="tel:01833695875">01833 695875</a></p>
+        </div>
+      </section>
+      <div class="sr-only" id="f-live" role="status" aria-live="polite"></div>
     </div>
   </section>
 </main>
@@ -1031,6 +1137,31 @@ legend { padding: 0; }
     ].filter(Boolean).join('\n');
   }
 
+  // Success state: swap the form for the enquiry tracker
+  function showTracker(first, ref) {
+    var card = document.getElementById('tracker');
+    var title = card.querySelector('.tracker__title');
+    var lead = card.querySelector('.tracker__lead');
+    var refBox = card.querySelector('.tracker__ref');
+    title.textContent = 'Thanks, ' + first + '. You’re on your way.';
+    lead.textContent = 'Here’s what happens next.';
+    refBox.hidden = true;
+    // Only a ref that looks like one is shown; with none, the reference line stays hidden
+    if (/^[A-Za-z0-9-]{3,24}$/.test(ref || '')) {
+      refBox.querySelector('b').textContent = ref;
+      refBox.hidden = false;
+      lead.textContent += ' Keep your reference handy if you ring us.';
+    }
+    form.style.display = 'none';
+    form.closest('.contact').classList.add('is-sent');
+    card.hidden = false;
+    document.getElementById('f-live').textContent = 'Your enquiry has been sent.';
+    // Two frames so the starting state paints before the animation class lands
+    requestAnimationFrame(function () { requestAnimationFrame(function () { card.classList.add('is-go'); }); });
+    card.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+    title.focus({ preventScroll: true });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var firstBad = null;
@@ -1048,11 +1179,9 @@ legend { padding: 0; }
     }
     err.hidden = true;
     var name = document.getElementById('f-name').value.trim();
-    var done = function () {
-      form.innerHTML = '<div class="form__done" role="status"><h3>Thanks, ' + name.split(' ')[0].replace(/[<>&"]/g, '') + '</h3><p>Your enquiry is with us. We’ll be in touch soon.</p></div>';
-    };
+    var first = name.split(/\s+/)[0].slice(0, 40);
     var endpoint = form.getAttribute('data-endpoint');
-    if (!endpoint) { done(); return; }
+    if (!endpoint) { showTracker(first, ''); return; }
     var btn = form.querySelector('button[type="submit"]'); btn.disabled = true; btn.textContent = 'Sending…';
     var data = new FormData(form);
     ['interest', 'timing', 'postcode', 'message'].forEach(function (k) { data.delete(k); });
@@ -1061,7 +1190,7 @@ legend { padding: 0; }
     data.append('consent_version', CONSENT_VERSION);
     fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
       .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
-      .then(function (j) { if (!j || !j.ok) throw new Error(); done(); })
+      .then(function (j) { if (!j || !j.ok) throw new Error(); showTracker(first, j.ref); })
       .catch(function () {
         // Typed values are left in place so nothing needs retyping
         if (window.turnstile) window.turnstile.reset();
