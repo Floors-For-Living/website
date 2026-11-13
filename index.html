@@ -37,6 +37,7 @@
   --line: #d6d2ca;
   --gold: #b8924a;         /* mid gold from the mark */
   --gold-dark: #8f6a2c;
+  --gold-text: #76561f;    /* deeper gold for small text on pale bands (WCAG AA) */
   --gold-light: #ecdc94;
   --on-dark: #f4f1ea;
   --on-dark-muted: #a9a297;
@@ -74,7 +75,7 @@ a { color: inherit; }
 
 .eyebrow {
   font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--gold-dark); margin: 0 0 18px;
+  color: var(--gold-text); margin: 0 0 18px;
 }
 .band--dark .eyebrow, .hero .eyebrow { color: var(--gold); }
 .eyebrow--split span { white-space: nowrap; }
@@ -210,7 +211,7 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .floor__name { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; color: var(--on-dark); font-family: var(--f-display); font-size: clamp(38px, 3.6vw, 50px); line-height: 1; }
 .floor__body { padding: 20px 2px 0; display: grid; gap: 12px; }
 .floor__body p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); }
-.floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-dark); border-top: 1px solid var(--line); padding-top: 12px; }
+.floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-text); border-top: 1px solid var(--line); padding-top: 12px; }
 @media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); } }
 .floors-dots { display: none; }
 @media (max-width: 760px) {
@@ -283,7 +284,7 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .visit { display: grid; grid-template-columns: 1fr 1.35fr; gap: clamp(32px, 5vw, 72px); align-items: stretch; }
 .visit__info { display: grid; gap: 28px; align-content: start; min-width: 0; }
 .visit__info dl { margin: 0; display: grid; gap: 22px; }
-.visit__info dt { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; }
+.visit__info dt { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 4px; }
 .visit__info dd { margin: 0; font-size: 17px; }
 .hours { width: 100%; max-width: 340px; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
 .hours td { padding: 4px 0; }
@@ -317,7 +318,7 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .contact__aside { display: grid; gap: 26px; align-content: start; min-width: 0; }
 .contact__direct { display: grid; gap: 14px; padding-top: 24px; border-top: 1px solid var(--line); }
 .contact__direct div { display: grid; gap: 2px; }
-.contact__direct span { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
+.contact__direct span { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text); }
 .contact__direct a { font-size: 20px; text-decoration: none; user-select: all; }
 form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 20px; min-width: 0; }
 #enquiry { scroll-margin-top: 96px; }

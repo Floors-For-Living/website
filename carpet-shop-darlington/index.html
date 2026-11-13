@@ -22,8 +22,10 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230e0d0b'/%3E%3Cg stroke='%23d6bb6e' stroke-width='3' stroke-linecap='round' fill='none'%3E%3Cpath d='M14 10v44M23 10v44M32 10v44M41 10v44M50 10v44'/%3E%3Cpath d='M14 26h9M23 42h9M32 16h9M41 32h9'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap"></noscript>
 <link rel="preload" href="/auttera.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js');</script>
 <link rel="stylesheet" href="/location.css">
 </head>
 <body class="loc">
@@ -141,8 +143,9 @@
 </div>
 
 <main id="top">
-  <!-- INTRO -->
-  <section class="loc-intro">
+  <!-- HERO: the hallway photo from the homepage under a dark overlay. It is the LCP image, so it loads eagerly. -->
+  <section class="loc-hero">
+    <img class="loc-hero__img" src="/images/hero-1200.webp" srcset="/images/hero-800.webp 800w, /images/hero-1200.webp 1200w, /images/hero-1376.webp 1376w" sizes="100vw" width="1376" height="768" alt="Victorian hallway with oak herringbone LVT and a wool stair runner with brass rods" fetchpriority="high" decoding="async">
     <div class="wrap">
       <p class="eyebrow eyebrow--split"><span>Flooring showroom</span><span class="sep" aria-hidden="true"> &middot; </span><span>Barnard Castle</span></p>
       <h1>A carpet shop near Darlington, worth the short drive</h1>
@@ -156,61 +159,114 @@
 
   <!-- IMAGE BAND: crop is set by object-position in location.css so the sign and window stay in view -->
   <figure class="loc-photo">
-    <img src="/images/FFL_Front-1200.webp" srcset="/images/FFL_Front-800.webp 800w, /images/FFL_Front-1200.webp 1200w, /images/FFL_Front-1600.webp 1600w" sizes="100vw" width="1600" height="900" alt="Floors for Living shopfront on Galgate, Barnard Castle" decoding="async">
+    <img src="/images/FFL_Front-1200.webp" srcset="/images/FFL_Front-800.webp 800w, /images/FFL_Front-1200.webp 1200w, /images/FFL_Front-1600.webp 1600w" sizes="100vw" width="1600" height="900" alt="Floors for Living shopfront on Galgate, Barnard Castle" loading="lazy" decoding="async">
     <figcaption>Find us at 41 Galgate, Barnard Castle</figcaption>
   </figure>
 
   <!-- WHY MAKE THE TRIP -->
   <section class="band band--stone" aria-labelledby="why-h">
     <div class="wrap">
-      <p class="eyebrow">Floors for Living</p>
-      <h2 class="loc-h" id="why-h">Why make the trip</h2>
+      <div data-reveal>
+        <p class="eyebrow">Floors for Living</p>
+        <h2 class="loc-h" id="why-h">Why make the trip</h2>
+      </div>
       <ul class="why">
-        <li><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17 17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></svg></span><h3>Bespoke, not off the roll</h3><p>Stair runners, borders and finishes made to suit your home.</p></li>
-        <li><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M4.5 9c4 1 9 1 15-1M4 14c5 1.5 10 1 16-2M8 4c1 5 3 11 8 16"/></svg></span><h3>British where we can</h3><p>We stock British suppliers as much as possible.</p></li>
-        <li><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9 14.5l2.2 2.2L15.5 12"/></svg></span><h3>Fitted or supply only</h3><p>Our network of local fitters can lay it for you, or you can fit it yourself.</p></li>
-        <li><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span><h3>Time to choose</h3><p>Take samples home and see them in your own light before you decide.</p></li>
+        <li data-reveal style="--i:0"><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17 17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></svg></span><h3>Bespoke, not off the roll</h3><p>Stair runners, borders and finishes made to suit your home.</p></li>
+        <li data-reveal style="--i:1"><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M4.5 9c4 1 9 1 15-1M4 14c5 1.5 10 1 16-2M8 4c1 5 3 11 8 16"/></svg></span><h3>British where we can</h3><p>We stock British suppliers as much as possible.</p></li>
+        <li data-reveal style="--i:2"><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9 14.5l2.2 2.2L15.5 12"/></svg></span><h3>Fitted or supply only</h3><p>Our network of local fitters can lay it for you, or you can fit it yourself.</p></li>
+        <li data-reveal style="--i:3"><span class="why__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span><h3>Time to choose</h3><p>Take samples home and see them in your own light before you decide.</p></li>
       </ul>
     </div>
   </section>
 
+  <!-- BRANDS: the homepage strip, reused. TODO: Lewis Abbott is on the showroom display but there is no logo file in the repo, so it is not in the strip yet. -->
+  <section class="brands" id="brands" aria-labelledby="brands-h">
+    <div class="wrap"><h2 class="eyebrow" id="brands-h">Brands we stock</h2></div>
+    <div class="brands__viewport">
+      <div class="brands__track">
+        <ul class="brands__list">
+          <li><img src="/brands/cormar.png" alt="Cormar Carpet Co" style="--h:46px" width="154" height="46" loading="lazy"></li>
+          <li><img src="/brands/artisan.png" alt="Artisan Luxury Flooring" style="--h:52px" width="109" height="52" loading="lazy"></li>
+          <li><img src="/brands/tredaire.png" alt="Tredaire" style="--h:30px" width="128" height="30" loading="lazy"></li>
+          <li><img src="/brands/penthouse.png" alt="Penthouse Carpets" style="--h:46px" width="103" height="46" loading="lazy"></li>
+          <li><img src="/brands/westex.png" alt="Westex" style="--h:50px" width="122" height="50" loading="lazy"></li>
+          <li><img src="/brands/axminster.svg" alt="Axminster" style="--h:38px" width="106" height="38" loading="lazy"></li>
+        </ul>
+        <ul class="brands__list" aria-hidden="true">
+          <li><img src="/brands/cormar.png" alt="" style="--h:46px" width="154" height="46" loading="lazy"></li>
+          <li><img src="/brands/artisan.png" alt="" style="--h:52px" width="109" height="52" loading="lazy"></li>
+          <li><img src="/brands/tredaire.png" alt="" style="--h:30px" width="128" height="30" loading="lazy"></li>
+          <li><img src="/brands/penthouse.png" alt="" style="--h:46px" width="103" height="46" loading="lazy"></li>
+          <li><img src="/brands/westex.png" alt="" style="--h:50px" width="122" height="50" loading="lazy"></li>
+          <li><img src="/brands/axminster.svg" alt="" style="--h:38px" width="106" height="38" loading="lazy"></li>
+        </ul>
+        <ul class="brands__list" aria-hidden="true">
+          <li><img src="/brands/cormar.png" alt="" style="--h:46px" width="154" height="46" loading="lazy"></li>
+          <li><img src="/brands/artisan.png" alt="" style="--h:52px" width="109" height="52" loading="lazy"></li>
+          <li><img src="/brands/tredaire.png" alt="" style="--h:30px" width="128" height="30" loading="lazy"></li>
+          <li><img src="/brands/penthouse.png" alt="" style="--h:46px" width="103" height="46" loading="lazy"></li>
+          <li><img src="/brands/westex.png" alt="" style="--h:50px" width="122" height="50" loading="lazy"></li>
+          <li><img src="/brands/axminster.svg" alt="" style="--h:38px" width="106" height="38" loading="lazy"></li>
+        </ul>
+        <ul class="brands__list" aria-hidden="true">
+          <li><img src="/brands/cormar.png" alt="" style="--h:46px" width="154" height="46" loading="lazy"></li>
+          <li><img src="/brands/artisan.png" alt="" style="--h:52px" width="109" height="52" loading="lazy"></li>
+          <li><img src="/brands/tredaire.png" alt="" style="--h:30px" width="128" height="30" loading="lazy"></li>
+          <li><img src="/brands/penthouse.png" alt="" style="--h:46px" width="103" height="46" loading="lazy"></li>
+          <li><img src="/brands/westex.png" alt="" style="--h:50px" width="122" height="50" loading="lazy"></li>
+          <li><img src="/brands/axminster.svg" alt="" style="--h:38px" width="106" height="38" loading="lazy"></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- RANGES -->
-  <section class="ranges-band" aria-labelledby="ranges-h">
+  <section class="band band--stone" aria-labelledby="ranges-h">
     <div class="wrap">
-      <p class="eyebrow">What we sell</p>
-      <h2 class="loc-h" id="ranges-h">Our ranges</h2>
-      <ul class="ranges">
-        <li><a href="/#floor-carpet"><strong>Carpet</strong><span>See the range</span></a></li>
-        <li><a href="/#floor-lvt"><strong>LVT</strong><span>See the range</span></a></li>
-        <li><a href="/#floor-vinyl"><strong>Vinyl</strong><span>See the range</span></a></li>
-        <li><a href="/#floor-real-wood"><strong>Real wood</strong><span>See the range</span></a></li>
-        <li><a href="/#floor-bespoke"><strong>Bespoke</strong><span>See the range</span></a></li>
+      <div data-reveal>
+        <p class="eyebrow">What we sell</p>
+        <h2 class="loc-h" id="ranges-h">Our ranges</h2>
+      </div>
+      <ul class="range-rail">
+        <li data-reveal style="--i:0"><a class="range" href="/#floor-carpet"><span class="range__img"><img src="/images/range-carpet-600.webp" srcset="/images/range-carpet-360.webp 360w, /images/range-carpet-600.webp 600w" sizes="(max-width: 560px) 68vw, (max-width: 1020px) 280px, 230px" width="600" height="745" alt="Greige twist carpet in a blue bedroom with sunlight across the floor" loading="lazy" decoding="async"><span class="range__name">Carpet</span></span><span class="range__more">See the range</span></a></li>
+        <li data-reveal style="--i:1"><a class="range" href="/#floor-lvt"><span class="range__img"><img src="/images/range-lvt-600.webp" srcset="/images/range-lvt-360.webp 360w, /images/range-lvt-600.webp 600w" sizes="(max-width: 560px) 68vw, (max-width: 1020px) 280px, 230px" width="600" height="745" alt="Oak effect LVT planks in a kitchen diner with painted chairs" loading="lazy" decoding="async"><span class="range__name">LVT</span></span><span class="range__more">See the range</span></a></li>
+        <li data-reveal style="--i:2"><a class="range" href="/#floor-vinyl"><span class="range__img"><img src="/images/range-vinyl-600.webp" srcset="/images/range-vinyl-360.webp 360w, /images/range-vinyl-600.webp 600w" sizes="(max-width: 560px) 68vw, (max-width: 1020px) 280px, 230px" width="600" height="745" alt="Pale stone effect vinyl in a cream shaker kitchen" loading="lazy" decoding="async"><span class="range__name">Vinyl</span></span><span class="range__more">See the range</span></a></li>
+        <li data-reveal style="--i:3"><a class="range" href="/#floor-real-wood"><span class="range__img"><img src="/images/range-real-wood-600.webp" srcset="/images/range-real-wood-360.webp 360w, /images/range-real-wood-600.webp 600w" sizes="(max-width: 560px) 68vw, (max-width: 1020px) 280px, 230px" width="600" height="745" alt="Wide plank oak floor in a living room with a cast iron fireplace and a linen armchair" loading="lazy" decoding="async"><span class="range__name">Real wood</span></span><span class="range__more">See the range</span></a></li>
+        <li data-reveal style="--i:4"><a class="range" href="/#floor-bespoke"><span class="range__img"><img src="/images/range-bespoke-600.webp" srcset="/images/range-bespoke-360.webp 360w, /images/range-bespoke-600.webp 600w" sizes="(max-width: 560px) 68vw, (max-width: 1020px) 280px, 230px" width="600" height="745" alt="Bespoke bound wool rug with a charcoal border on walnut herringbone" loading="lazy" decoding="async"><span class="range__name">Bespoke</span></span><span class="range__more">See the range</span></a></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- IMAGE BAND WITH A LINE OVER IT -->
+  <section class="loc-quote" aria-label="Sheep grazing on Teesdale fell pasture beside a dry stone wall">
+    <img src="/images/british-wool-1200.webp" srcset="/images/british-wool-800.webp 800w, /images/british-wool-1200.webp 1200w, /images/british-wool-1376.webp 1376w" sizes="100vw" width="1376" height="768" alt="" loading="lazy" decoding="async">
+    <div class="wrap">
+      <p class="loc-quote__text" data-reveal>Bespoke, British where we can, and fitted by people we trust.</p>
     </div>
   </section>
 
   <!-- Q&A -->
   <section class="band">
     <div class="wrap qa">
-      <figure class="qa__photo">
+      <figure class="qa__photo" data-reveal>
         <img src="/images/FFL_LVT-1200.webp" srcset="/images/FFL_LVT-800.webp 800w, /images/FFL_LVT-1200.webp 1200w, /images/FFL_LVT-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 560px" width="1600" height="900" alt="LVT sample wall in the Floors for Living showroom" loading="lazy" decoding="async">
         <figcaption>Take samples home and see them in your own light</figcaption>
       </figure>
       <div>
-        <p class="eyebrow">Questions</p>
-        <div class="qa__item">
+        <p class="eyebrow" data-reveal>Questions</p>
+        <div class="qa__item" data-reveal>
           <h2>Do you fit carpets in Darlington?</h2>
           <p>Yes. Our network of local fitters covers Darlington and the villages around it, including Cockerton, Hurworth, Heighington and Middleton St George. If you’d rather fit it yourself, we can supply only.</p>
         </div>
-        <div class="qa__item">
+        <div class="qa__item" data-reveal>
           <h2>Is it worth driving to Barnard Castle for a carpet?</h2>
           <p>We think so, but we would. You get a proper independent showroom, premium British brands, and people who’ll help you choose rather than sell you whatever’s on offer. Plus Barnard Castle is a lovely place for a coffee afterwards.</p>
         </div>
-        <div class="qa__item">
+        <div class="qa__item" data-reveal>
           <h2>Can I take samples home?</h2>
           <p>Yes. Carpet always looks different at home than it does in a showroom, so we’d rather you see it in your own rooms first.</p>
         </div>
-        <div class="qa__item">
+        <div class="qa__item" data-reveal>
           <h2>What flooring do you sell?</h2>
           <p>Carpet, LVT, vinyl, real wood and bespoke pieces such as stair runners, from premium brands.</p>
         </div>
@@ -223,12 +279,12 @@
   <!-- TODO: the homepage says "Free home measure and quote". Left out here until you confirm it can be repeated on these pages. -->
   <section class="band loc-contact" id="contact" aria-labelledby="contact-h">
     <div class="wrap loc-contact__grid">
-      <div>
+      <div data-reveal>
         <p class="eyebrow">Contact us</p>
         <h2 class="loc-h" id="contact-h">Pop in, ring or email</h2>
         <p class="loc-also">Also see our page for <a href="/carpet-shop-bishop-auckland/">carpet shop near Bishop Auckland</a>.</p>
       </div>
-      <div>
+      <div data-reveal style="--i:1">
       <dl>
         <div><dt>Showroom</dt><dd>41 Galgate<br>Barnard Castle<br>DL12 8EJ</dd></div>
         <div><dt>Opening hours</dt><dd>
@@ -291,6 +347,21 @@
   btn.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+  // Fade up once as sections scroll into view (CSS only hides them when motion is allowed)
+  var items = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  } else { items.forEach(function (el) { el.classList.add('is-in'); }); }
+  // Start the slow hero zoom once the page has loaded, so it never competes with the image's first paint
+  var hero = document.querySelector('.loc-hero');
+  var zoom = function () { if (hero) hero.classList.add('is-zoom'); };
+  if (document.readyState === 'complete') zoom(); else window.addEventListener('load', function () { setTimeout(zoom, 300); });
+  // Brands strip: tap to pause or resume (it also pauses on hover)
+  var strip = document.getElementById('brands');
+  if (strip) strip.addEventListener('click', function () { strip.classList.toggle('is-paused'); });
   // Call bar steps aside while the contact band is on screen
   var bar = document.getElementById('callbar'), contact = document.getElementById('contact');
   if (bar && contact && 'IntersectionObserver' in window) {
