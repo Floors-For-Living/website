@@ -48,3 +48,14 @@ supabase functions deploy enquiry --no-verify-jwt
 - Processors named in the notice: Supabase (database, Ireland), Resend (enquiry emails), Cloudflare (Turnstile spam check), GitHub (hosting), GoDaddy (domain and email). Google Fonts loads with each page. The Google Map is click-to-load (a "Load map" button), so Google sets no cookies until a visitor chooses it.
 - Still to fill in `privacy.html`: the legal business name (`[LEGAL BUSINESS NAME]`) and ICO registration number (`[ICO NUMBER]`), highlighted in yellow with TODO comments.
 - Email is required on the form; the message, interests, timing and postcode are optional. The notice says so.
+
+## Keep-alive
+
+Supabase pauses free-tier projects after about 7 days without activity, which would stop the enquiry form working.
+
+- `.github/workflows/keepalive.yml` runs every Monday and Thursday (06:17 UTC) and calls `GET /functions/v1/enquiry`. The function runs `select 1` and returns `{ "ok": true }`. No secrets are involved and nothing is stored.
+- If a run fails, GitHub emails the repository's watchers. Check Actions > "Supabase keep-alive" and run it by hand with "Run workflow".
+- GitHub switches off scheduled workflows after 60 days with no commits to the repository. If the site goes quiet for that long, re-enable the workflow in the Actions tab (or push any commit).
+- The function change must be deployed (`supabase functions deploy enquiry --no-verify-jwt`) before the workflow can pass.
+- If the project is ever upgraded to a paid plan, this is no longer needed and the workflow can be deleted.
+
