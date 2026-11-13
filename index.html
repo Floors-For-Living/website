@@ -37,6 +37,7 @@
   --line: #d6d2ca;
   --gold: #b8924a;         /* mid gold from the mark */
   --gold-dark: #8f6a2c;
+  --gold-text: #76561f;    /* deeper gold for small text on pale bands (WCAG AA) */
   --gold-light: #ecdc94;
   --on-dark: #f4f1ea;
   --on-dark-muted: #a9a297;
@@ -74,7 +75,7 @@ a { color: inherit; }
 
 .eyebrow {
   font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--gold-dark); margin: 0 0 18px;
+  color: var(--gold-text); margin: 0 0 18px;
 }
 .band--dark .eyebrow, .hero .eyebrow { color: var(--gold); }
 .eyebrow--split span { white-space: nowrap; }
@@ -210,7 +211,7 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .floor__name { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; color: var(--on-dark); font-family: var(--f-display); font-size: clamp(38px, 3.6vw, 50px); line-height: 1; }
 .floor__body { padding: 20px 2px 0; display: grid; gap: 12px; }
 .floor__body p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); }
-.floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-dark); border-top: 1px solid var(--line); padding-top: 12px; }
+.floor__spec { font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-text); border-top: 1px solid var(--line); padding-top: 12px; }
 @media (max-width: 1020px) { .floors { grid-template-columns: repeat(2, 1fr); } }
 .floors-dots { display: none; }
 @media (max-width: 760px) {
@@ -283,7 +284,7 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .visit { display: grid; grid-template-columns: 1fr 1.35fr; gap: clamp(32px, 5vw, 72px); align-items: stretch; }
 .visit__info { display: grid; gap: 28px; align-content: start; min-width: 0; }
 .visit__info dl { margin: 0; display: grid; gap: 22px; }
-.visit__info dt { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; }
+.visit__info dt { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 4px; }
 .visit__info dd { margin: 0; font-size: 17px; }
 .hours { width: 100%; max-width: 340px; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums; }
 .hours td { padding: 4px 0; }
@@ -317,7 +318,7 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .contact__aside { display: grid; gap: 26px; align-content: start; min-width: 0; }
 .contact__direct { display: grid; gap: 14px; padding-top: 24px; border-top: 1px solid var(--line); }
 .contact__direct div { display: grid; gap: 2px; }
-.contact__direct span { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dark); }
+.contact__direct span { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text); }
 .contact__direct a { font-size: 20px; text-decoration: none; user-select: all; }
 form { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 20px; min-width: 0; }
 #enquiry { scroll-margin-top: 96px; }
@@ -455,6 +456,13 @@ legend { padding: 0; }
 .site-footer nav a:hover { color: var(--gold-light); }
 .site-footer .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: 13px; }
 .footer-seo { margin: 0; padding-top: 24px; font-size: 13px; line-height: 1.6; max-width: 80ch; color: var(--on-dark-muted); }
+.floor[id] { scroll-margin-top: calc(92px + env(safe-area-inset-top, 0px)); }
+.footer-areas { margin: 0; padding-top: 14px; font-size: 13px; line-height: 1.6; color: var(--on-dark-muted); }
+.footer-areas a { color: var(--on-dark); text-decoration-color: var(--gold); text-underline-offset: 3px; }
+.footer-areas a:hover { color: var(--gold-light); }
+.visit__photo { margin: 0; }
+.visit__photo img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 46% 38%; }
+.visit__photo figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }
 .gold-rule { height: 2px; background: var(--gold-grad); }
 </style>
 </head>
@@ -479,7 +487,7 @@ legend { padding: 0; }
 </svg>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HomeGoodsStore","name":"Floors for Living",
+{"@context":"https://schema.org","@type":"HomeGoodsStore","@id":"https://floorsforliving.co.uk/#business","name":"Floors for Living",
  "description":"Independent carpet and flooring shop in Barnard Castle selling carpet, LVT, vinyl, real wood and bespoke floors, with fitting or supply only.",
  "url":"https://floorsforliving.co.uk/","image":"https://floorsforliving.co.uk/hero.jpg",
  "telephone":"+441833695875","email":"sales@floorsforliving.co.uk",
@@ -595,35 +603,35 @@ legend { padding: 0; }
         <p class="lede" style="max-width:42ch">Tell us how the room gets used and we’ll point you to the right floor. Samples of every range are on display on Galgate.</p>
       </div>
       <div class="floors">
-        <a class="floor" href="#enquiry" data-floor="Carpet">
+        <a class="floor" id="floor-carpet" href="#enquiry" data-floor="Carpet">
           <div class="floor__img"><img src="carpet.jpg" alt="Greige twist carpet in a blue bedroom with sunlight across the floor" loading="lazy"><span class="floor__name">Carpet</span></div>
           <div class="floor__body">
             <p>Warm and quiet underfoot for bedrooms, lounges and stairs, in hard-wearing ranges that keep looking good where everyone walks.</p>
             <span class="floor__spec">4m &amp; 5m roll widths</span>
           </div>
         </a>
-        <a class="floor" href="#enquiry" data-floor="LVT">
+        <a class="floor" id="floor-lvt" href="#enquiry" data-floor="LVT">
           <div class="floor__img"><img src="lvt.jpg" alt="Oak effect LVT planks in a kitchen diner with painted chairs" loading="lazy"><span class="floor__name">LVT</span></div>
           <div class="floor__body">
             <p>Looks like wood or stone, but shrugs off muddy boots, wet paws and spilt tea. A quick mop and it’s done.</p>
             <span class="floor__spec">Plank, herringbone &amp; tile</span>
           </div>
         </a>
-        <a class="floor" href="#enquiry" data-floor="Vinyl">
+        <a class="floor" id="floor-vinyl" href="#enquiry" data-floor="Vinyl">
           <div class="floor__img"><img src="vinyl.jpg" alt="Pale stone effect vinyl in a cream shaker kitchen" loading="lazy"><span class="floor__name">Vinyl</span></div>
           <div class="floor__body">
             <p>Waterproof and warm for kitchens, bathrooms and boot rooms. Wipes clean and easy on the budget.</p>
             <span class="floor__spec">2m, 3m &amp; 4m widths</span>
           </div>
         </a>
-        <a class="floor" href="#enquiry" data-floor="Real wood">
+        <a class="floor" id="floor-real-wood" href="#enquiry" data-floor="Real wood">
           <div class="floor__img"><img src="realwood.jpg" alt="Wide plank oak floor in a living room with a cast iron fireplace and a linen armchair" loading="lazy"><span class="floor__name">Real wood</span></div>
           <div class="floor__body">
             <p>The real thing, with grain and character no copy can match. Engineered and solid oak that only gets better with age.</p>
             <span class="floor__spec">Engineered &amp; solid</span>
           </div>
         </a>
-        <a class="floor" href="#enquiry" data-floor="Bespoke">
+        <a class="floor" id="floor-bespoke" href="#enquiry" data-floor="Bespoke">
           <div class="floor__img"><img src="bespoke.jpg" alt="Bespoke bound wool rug with a charcoal border on walnut herringbone" loading="lazy"><span class="floor__name">Bespoke</span></div>
           <div class="floor__body">
             <p>Rugs, stair runners and borders made to your exact measurements. For awkward spaces, old houses and the room you want just right.</p>
@@ -734,6 +742,10 @@ legend { padding: 0; }
           </dd></div>
           <div><dt>Parking</dt><dd class="tbc">Free parking nearby</dd></div>
         </dl>
+        <figure class="visit__photo">
+          <img src="images/FFL_Front-1200.webp" srcset="images/FFL_Front-800.webp 800w, images/FFL_Front-1200.webp 1200w, images/FFL_Front-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 480px" width="1600" height="900" alt="Floors for Living shopfront on Galgate, Barnard Castle" loading="lazy" decoding="async">
+          <figcaption>Find us at 41 Galgate, Barnard Castle</figcaption>
+        </figure>
       </div>
 
       <div class="map">
@@ -926,6 +938,7 @@ legend { padding: 0; }
       </nav>
     </div>
     <p class="footer-seo">Carpet, LVT, vinyl, real wood and bespoke flooring in Barnard Castle. Supplied and fitted across Teesdale, including Startforth, Cotherstone, Middleton-in-Teesdale, Staindrop and Gainford.</p>
+    <p class="footer-areas">Areas we cover: <a href="/carpet-shop-darlington/">Carpet shop near Darlington</a> &middot; <a href="/carpet-shop-bishop-auckland/">Carpet shop near Bishop Auckland</a></p>
     <div class="bottom">
       <span>&copy; <span id="yr">2026</span> Floors for Living, 41 Galgate, Barnard Castle DL12 8EJ</span>
       <span><a href="tel:01833695875" style="text-decoration:none">01833 695875</a> &middot; <a href="mailto:sales@floorsforliving.co.uk" style="text-decoration:none">sales@floorsforliving.co.uk</a></span>
