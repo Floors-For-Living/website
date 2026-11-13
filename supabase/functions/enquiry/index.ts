@@ -56,6 +56,17 @@ function hostOf(url: string) {
 Deno.serve(async (req) => {
   const origin = req.headers.get("origin") ?? "";
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(req) });
+  // Keep-alive: a scheduled GitHub Action calls GET so the free-tier project is not paused for inactivity.
+  // It runs a trivial query, so both the function and the database see activity. Nothing is read or written.
+  if (req.method === "GET") {
+    try {
+      await sql`select 1`;
+      return reply(req, 200, { ok: true });
+    } catch (e) {
+      console.error("keep-alive failed", (e as Error).message);
+      return reply(req, 500, { ok: false });
+    }
+  }
   if (req.method !== "POST") return reply(req, 405, { error: "Method not allowed" });
   if (origin && !originAllowed(origin)) return reply(req, 403, { error: "Origin not allowed" });
 
