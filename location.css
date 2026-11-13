@@ -184,31 +184,33 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 .loc h2, .loc h3 { font-family: var(--f-body); font-weight: 600; letter-spacing: -.012em; text-wrap: balance; margin: 0; color: var(--text); }
 .loc h2.loc-h { font-size: clamp(32px, 4.4vw, 52px); line-height: 1.08; font-weight: 500; }
 
-/* Hero: full-bleed photo with a dark overlay. This image is the LCP, so it is not lazy loaded. */
-.loc-hero { position: relative; isolation: isolate; overflow: hidden; background: var(--ink); color: var(--on-dark); display: flex; align-items: flex-end; min-height: clamp(540px, 80vh, 780px); }
-.loc-hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; transform-origin: 60% 55%; }
-.loc-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(14,13,11,.9) 0%, rgba(14,13,11,.74) 42%, rgba(14,13,11,.3) 100%), linear-gradient(0deg, rgba(14,13,11,.55) 0%, rgba(14,13,11,0) 40%); }
+/* Hero: the shopfront photo under a dark black gradient. It is the LCP image, so it loads eagerly.
+   Wide screens: photo on the right, text on solid black at the left, so the H1 never covers the shop sign.
+   Under 1100px: photo across the top, text below on black. */
+.loc-hero { position: relative; isolation: isolate; overflow: hidden; background: #000; color: var(--on-dark); display: flex; align-items: flex-end; min-height: clamp(560px, 84vh, 800px); }
+.loc-hero__img { position: absolute; top: 0; right: 0; bottom: 0; z-index: -2; width: 66%; height: 100%; object-fit: cover; object-position: 48% 40%; transform-origin: 50% 40%; }
+.loc-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.55) 24%, rgba(0,0,0,0) 52%), linear-gradient(90deg, #000 0%, #000 33%, rgba(0,0,0,.7) 42%, rgba(0,0,0,.2) 58%, rgba(0,0,0,.1) 100%); }
 .loc-hero .wrap { width: 100%; padding-block: 120px 72px; }
-.loc-hero h1 { font-size: clamp(34px, 5.4vw, 72px); line-height: 1.04; max-width: 22ch; color: #fff; }
+.loc-hero h1 { font-size: clamp(34px, 5vw, 66px); line-height: 1.04; max-width: 15ch; color: #fff; }
 .loc-hero .eyebrow { color: var(--gold-light); }
-.loc-hero p.lede { color: #e6e1d6; margin-top: 24px; max-width: 58ch; font-size: clamp(17px, 1.6vw, 20px); }
+.loc-hero p.lede { color: #e6e1d6; margin-top: 24px; max-width: 46ch; font-size: clamp(17px, 1.6vw, 20px); }
+.loc-hero__caption { position: absolute; right: var(--gutter-r); bottom: 22px; margin: 0; font-size: 13px; letter-spacing: .04em; color: rgba(244,241,234,.78); }
 .loc-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
-@media (max-width: 760px) {
+@media (max-width: 1100px) {
   .loc-hero { min-height: calc(100svh - 76px - env(safe-area-inset-top, 0px)); }
-  .loc-hero::after { background: linear-gradient(180deg, rgba(14,13,11,.34) 0%, rgba(14,13,11,.8) 24%, rgba(14,13,11,.93) 45%, rgba(14,13,11,.96) 100%); }
+  .loc-hero__img { left: 0; width: 100%; height: 62%; bottom: auto; object-position: 50% 32%; }
+  .loc-hero::after { background: linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.1) 18%, rgba(0,0,0,.74) 31%, rgba(0,0,0,.93) 42%, #000 58%); }
+  .loc-hero h1 { max-width: 22ch; font-size: clamp(34px, 6.4vw, 60px); }
+  .loc-hero p.lede { max-width: 58ch; }
+  .loc-hero__caption { display: none; }
+}
+@media (max-width: 760px) {
   .loc-hero .wrap { padding-block: 72px calc(36px + 52px + env(safe-area-inset-bottom, 0px)); }
   .loc-hero p.lede { margin-top: 18px; }
   .loc-ctas { margin-top: 24px; gap: 10px; }
   .loc-hero .loc-ctas .btn { flex: 1 1 100%; justify-content: center; padding-block: 16px; }
 }
 @media (max-width: 760px) and (max-height: 720px) { .loc-hero .wrap { padding-top: 36px; } .loc-hero p.lede { font-size: 16px; line-height: 1.5; margin-top: 14px; } .loc-hero .eyebrow { margin-bottom: 12px; } .loc-ctas { margin-top: 18px; } .loc-hero .loc-ctas .btn { padding-block: 14px; } }
-
-/* Shopfront band: a little shorter than full 21:9 so it does not dominate */
-.loc-photo { margin: 0; background: var(--paper); }
-.loc-photo img { width: 100%; height: auto; aspect-ratio: 5 / 2; object-fit: cover; object-position: 46% 38%; }
-.loc-photo figcaption { padding: 16px var(--gutter-r) 0 var(--gutter-l); max-width: var(--wrap); margin: 0 auto; font-size: 14px; color: var(--muted); }
-.loc-photo + .band { margin-top: clamp(28px, 4vw, 48px); }
-@media (max-width: 700px) { .loc-photo img { aspect-ratio: 4 / 3; } }
 
 /* Why make the trip */
 .why { display: grid; grid-template-columns: repeat(4, 1fr); margin: clamp(36px, 5vw, 56px) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
